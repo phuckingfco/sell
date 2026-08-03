@@ -195,15 +195,6 @@
 
       // Khi khách bấm "Tôi đã chuyển khoản xong"
       function handlePaidConfirm() {
-        const emailInput = document.getElementById("customerEmail");
-        const email = emailInput ? emailInput.value.trim() : "";
-
-        if (!email) {
-          alert("Vui lòng nhập email nhận link tải file!");
-          if (emailInput) emailInput.focus();
-          return;
-        }
-
         // Hiệu ứng đang đối soát giả lập cho mượt
         const loadingHTML = `
       <div id="loadingOverlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-family: 'Inter', sans-serif;">
@@ -222,7 +213,6 @@
           const currentProduct = localStorage.getItem("CineForge_Product");
 
           localStorage.setItem("CineForge_Paid", "true");
-          localStorage.setItem("CineForge_Email", email);
 
           if (currentProduct) {
             localStorage.setItem("CineForge_Product", currentProduct);
