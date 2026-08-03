@@ -1,10 +1,11 @@
-// --- QUẢN LÝ ĐĂNG NHẬP & GIAO DIỆN ---
+// --- QUẢN LÝ ĐĂNG NHẬP, GIỎ HÀNG & GIAO DIỆN ---
 document.addEventListener("DOMContentLoaded", () => {
   const loginModal = document.getElementById("loginModal");
 
   updateUserInterface();
   updateCartCount();
 
+  // 1. Xử lý Modal Đăng nhập
   if (loginModal) {
     const loginBtnTrigger =
       document.getElementById("login") ||
@@ -70,15 +71,118 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "./gio_hang.html";
     });
   }
+
+  // 2. Xử lý hiển thị tổng tiền ở trang thanh toán
+  const totalDisplay =
+    document.getElementById("checkoutTotal") ||
+    document.getElementById("totalPriceDisplay");
+
+  if (totalDisplay) {
+    const directProduct = localStorage.getItem("CineForge_Product");
+    let cart = [];
+
+    if (directProduct) {
+      try {
+        cart = [JSON.parse(directProduct)];
+      } catch (e) {
+        cart = [];
+      }
+    } else {
+      try {
+        cart = JSON.parse(localStorage.getItem("CineForge_Cart")) || [];
+      } catch (e) {
+        cart = [];
+      }
+    }
+
+    if (cart.length === 0) {
+      cart = [{ name: "Sản phẩm CineForge", price: 0 }];
+    }
+
+    let total = cart.reduce((sum, item) => sum + Number(item.price || 0), 0);
+    totalDisplay.textContent = total.toLocaleString("vi-VN") + "đ";
+  }
+
+  // 3. Xử lý hiển thị thông tin sản phẩm và nút download (Dành cho trang download.html)
+  const downloadContainer = document.getElementById("downloadContent");
+  const emailDisplay = document.getElementById("buyerEmailDisplay");
+
+  if (downloadContainer || document.getElementById("productNameDisplay")) {
+    const isPaid = localStorage.getItem("CineForge_Paid");
+
+    if (window.location.pathname.includes("download.html")) {
+      if (!isPaid || isPaid !== "true") {
+        alert("Bạn chưa thanh toán đơn hàng nên chưa có quyền truy cập trang này!");
+        window.location.href = "gio_hang.html";
+        return;
+      }
+    }
+
+    if (emailDisplay) {
+      emailDisplay.textContent = localStorage.getItem("CineForge_Email") || "Khách hàng";
+    }
+
+    let product = null;
+    try {
+      product = JSON.parse(localStorage.getItem("CineForge_Product"));
+    } catch (e) {
+      product = null;
+    }
+
+    if (!product) {
+      try {
+        const cart = JSON.parse(localStorage.getItem("CineForge_Cart")) || [];
+        if (cart.length > 0) {
+          product = cart[cart.length - 1];
+        }
+      } catch (e) {
+        product = null;
+      }
+    }
+
+    if (product && downloadContainer) {
+      const fileName = product.name || "video_download.mp4";
+      downloadContainer.innerHTML = `
+        <div style="background: #0b0f19; border: 1px solid #3b82f6; padding: 1rem; border-radius: 0.75rem; margin-bottom: 1rem; text-align: left;">
+          <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Sản phẩm của bạn:</p>
+          <p style="margin: 0.3rem 0 0 0; color: #fff; font-weight: 600; font-size: 0.95rem;">🎥 ${fileName}</p>
+        </div>
+        <a
+          href="${product.fileUrl || '#'}"
+          download="${fileName}"
+          style="
+            display: block;
+            width: 100%;
+            background: #38bdf8;
+            color: #0b0f19;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            font-size: 1rem;
+            box-sizing: border-box;
+            cursor: pointer;
+          "
+        >
+          📥 Tải xuống video ngay
+        </a>
+      `;
+    } else if (downloadContainer) {
+      downloadContainer.innerHTML = `
+        <p style="color: #ef4444; font-size: 0.9rem;">Không tìm thấy thông tin sản phẩm!</p>
+      `;
+    }
+  }
 });
 
-// Hàm cập nhật giao diện (Đăng nhập / Chào Phúc + Đăng xuất trực tiếp)
+// --- HÀM CẬP NHẬT GIAO DIỆN ĐĂNG NHẬP ---
 function updateUserInterface() {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   const username =
     localStorage.getItem("username") || localStorage.getItem("userName");
 
-  // Tìm nút đăng nhập qua id="login" hoặc id="authBtn" hoặc class=".login-btn"
   const loginBtn =
     document.getElementById("login") ||
     document.getElementById("authBtn") ||
@@ -91,7 +195,7 @@ function updateUserInterface() {
         : username || "Phúc";
 
     loginBtn.textContent = `Chào, ${displayName} (Đăng xuất)`;
-    loginBtn.href = "#"; // Chặn chuyển trang login.html
+    loginBtn.href = "#";
 
     loginBtn.style.background = "linear-gradient(135deg, #00f2fe, #4facfe)";
     loginBtn.style.color = "#0b0f19";
@@ -100,16 +204,15 @@ function updateUserInterface() {
     loginBtn.style.borderRadius = "0.5rem";
     loginBtn.style.textDecoration = "none";
 
-    // Bấm vào chữ "Chào, Phúc (Đăng xuất)" sẽ tiến hành đăng xuất ngay lập tức
     loginBtn.onclick = (e) => {
-      e.preventDefault(); // Chặn dấu # nhảy lên đầu trang
+      e.preventDefault();
       if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("username");
         localStorage.removeItem("userName");
 
         alert("Đã đăng xuất thành công!");
-        location.reload(); // Tải lại trang
+        location.reload();
       }
     };
   }
@@ -117,17 +220,20 @@ function updateUserInterface() {
 
 // --- QUẢN LÝ GIỎ HÀNG ---
 function getCart() {
-  return JSON.parse(localStorage.getItem("cart")) || [];
+  return JSON.parse(localStorage.getItem("CineForge_Cart")) || [];
 }
 
 function saveCart(cart) {
-  localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem("CineForge_Cart", JSON.stringify(cart));
   updateCartCount();
 }
 
 function updateCartCount() {
   const cart = getCart();
-  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  const totalItems = cart.reduce(
+    (sum, item) => sum + (parseInt(item.quantity) || 1),
+    0,
+  );
 
   const cartBtns = document.querySelectorAll(
     ".cart-btn, a[href*='gio_hang.html']",
@@ -136,115 +242,45 @@ function updateCartCount() {
     btn.textContent = `Giỏ hàng (${totalItems})`;
   });
 }
-// Hàm thêm vào giỏ hàng tự động đọc dữ liệu từ nút bấm
-// function addToCartFromButton(buttonElement) {
-//   const productName = buttonElement.getAttribute("data-name");
-//   const productPrice = parseInt(buttonElement.getAttribute("data-price"));
 
-//   let cart = getCart();
-//   const existingIndex = cart.findIndex((item) => item.name === productName);
-
-//   if (existingIndex > -1) {
-//     cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + 1;
-//   } else {
-//     cart.push({ name: productName, price: productPrice, quantity: 1 });
-//   }
-
-//   saveCart(cart);
-//   alert(
-//     `Đã thêm "${productName}" (${productPrice.toLocaleString()}đ) vào giỏ hàng thành công!`,
-//   );
-// }
-
-function addToCartFromButton(buttonElement, customName) {
-  // Nếu có truyền tên trực tiếp thì dùng, không thì mới đi tìm
-  let productName = customName;
-  if (!productName) {
-    const card =
-      buttonElement.closest(".product-card") || buttonElement.closest("div");
-    const titleEl = card
-      ? card.querySelector("h3") || card.querySelector("h4")
-      : null;
-    productName = titleEl ? titleEl.textContent.trim() : "Sản phẩm";
-  }
-
-  const productPrice = parseInt(buttonElement.getAttribute("data-price")) || 0;
+// Hàm Thêm Giỏ Hàng
+function addToCartCustom(button) {
+  const name = button.getAttribute("data-name");
+  const fileUrl = button.getAttribute("data-file");
+  const price = parseInt(button.getAttribute("data-price"));
 
   let cart = getCart();
-  const existingIndex = cart.findIndex((item) => item.name === productName);
+  const existing = cart.find((item) => item.name === name);
 
-  if (existingIndex > -1) {
-    cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + 1;
+  if (existing) {
+    existing.quantity = (parseInt(existing.quantity) || 1) + 1;
   } else {
-    cart.push({ name: productName, price: productPrice, quantity: 1 });
+    cart.push({ name: name, fileUrl: fileUrl, price: price, quantity: 1 });
   }
 
   saveCart(cart);
-  showToast(`Đã thêm "${productName}" vào giỏ hàng!`);
-}
-
-// Hàm mở bảng QR thanh toán (Sử dụng ảnh cá nhân QR_fake.jpg)
-function openQRModal() {
-  const cart = getCart();
-  if (cart.length === 0) {
-    alert("Giỏ hàng của bạn đang trống!");
-    return;
-  }
-
-  // Tính tổng tiền hiển thị (nếu có chỗ chứa tiền)
-  let totalAmount = cart.reduce(
-    (sum, item) => sum + item.price * (item.quantity || 1),
-    0,
+  localStorage.setItem(
+    "CineForge_Product",
+    JSON.stringify({ name, fileUrl, price }),
   );
-  const amountEl = document.getElementById("qrAmountText");
-  if (amountEl) {
-    amountEl.textContent = totalAmount.toLocaleString() + "đ";
-  }
 
-  // Mở modal QR lên và giữ nguyên ảnh cá nhân của Phúc
-  const modal = document.getElementById("qr-modal");
-  if (modal) modal.style.display = "flex";
+  alert("Đã thêm sản phẩm vào giỏ hàng thành công!");
 }
 
-// Hàm đóng bảng QR thanh toán
-function closeQRModal() {
-  const modal = document.getElementById("qr-modal");
-  if (modal) modal.style.display = "none";
+// Hàm Mua Ngay trực tiếp chuyển sang trang thanh toán QR
+function buyNowDirect(button) {
+  const name = button.getAttribute("data-name");
+  const fileUrl = button.getAttribute("data-file");
+  const price = button.getAttribute("data-price");
+
+  const product = {
+    name: name,
+    fileUrl: fileUrl,
+    price: parseInt(price) || 0,
+  };
+
+  localStorage.setItem("CineForge_Product", JSON.stringify(product));
+  localStorage.removeItem("CineForge_Paid");
+
+  window.location.href = "thanh_toan.html";
 }
-
-// Hàm xác nhận khi người dùng đã thanh toán xong
-function confirmPaymentSuccess() {
-  alert("Thanh toán thành công! Cảm ơn bạn đã ủng hộ CineForge.");
-  localStorage.removeItem("cart"); // Xóa giỏ hàng sau khi mua thành công
-  window.location.href = "index.html"; // Quay về trang chủ
-}
-
-//
-function showToast(message) {
-  // Kiểm tra xem đã có khung thông báo chưa, chưa thì tạo mới
-  let toast = document.getElementById("custom-toast");
-  if (!toast) {
-    toast = document.createElement("div");
-    toast.id = "custom-toast";
-    document.body.appendChild(toast);
-  }
-
-  toast.innerHTML = `<span style="color: #38bdf8; font-weight: bold;">CineForge:</span> ${message}`;
-  toast.classList.add("show");
-
-  // Sau 3 giây tự động ẩn đi
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 3000);
-}
-showToast('Đã thêm "' + name + '" vào giỏ hàng thành công!');
-
-// Thêm full fabicon
-// Tự động thêm favicon cho mọi trang web khi tải xong
-document.addEventListener("DOMContentLoaded", () => {
-  const link = document.createElement("link");
-  link.rel = "icon";
-  link.type = "image/svg+xml";
-  link.href = "./fabicon.svg";
-  document.head.appendChild(link);
-});

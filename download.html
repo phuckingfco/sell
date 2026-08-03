@@ -3,99 +3,171 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tải Tài Nguyên Miễn Phí - CineForge</title>
-    <!-- Gọi file CSS chung -->
-    <link rel="stylesheet" href="style.css" />
+    <title>Tải xuống sản phẩm - CineForge</title>
+    <link rel="icon" type="image/svg+xml" href="fabicon.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <!-- Nút quay về trang chủ -->
-    <div style="max-width: 1100px; margin: 2rem auto 0; padding: 0 2rem">
-      <a
-        href="index.html"
+  <body
+    style="
+      background-color: #0b0f19;
+      color: #fff;
+      font-family: &quot;Inter&quot;, sans-serif;
+      margin: 0;
+      padding: 4rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    "
+  >
+    <div
+      style="
+        max-width: 500px;
+        width: 100%;
+        background: #121824;
+        border: 1px solid #1f2937;
+        padding: 2.5rem;
+        border-radius: 1.25rem;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+      "
+    >
+      <div style="font-size: 3rem; margin-bottom: 1rem">🎉</div>
+      <h2
         style="
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          color: #9ca3af;
-          text-decoration: none;
-          font-size: 0.95rem;
-          font-weight: 600;
-          transition: color 0.2s ease;
+          font-size: 1.5rem;
+          font-weight: 900;
+          color: #38bdf8;
+          margin-bottom: 0.5rem;
         "
       >
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <line x1="19" y1="12" x2="5" y2="12"></line>
-          <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
-        Quay lại trang chủ
-      </a>
-    </div>
-    <!-- Phần nội dung trang Download -->
-    <section class="freebies-section">
-      <div class="freebies-header">
-        <span class="freebies-badge">Free Resources</span>
-        <h2 class="freebies-title">Kho tài nguyên <span>Miễn phí</span></h2>
-        <p class="freebies-desc">
-          Tải ngay các LUTs, hiệu ứng và template chất lượng cao hoàn toàn miễn
-          phí cho Editor.
+        Thanh toán thành công!
+      </h2>
+      <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem">
+        Cảm ơn bạn đã mua hàng. Đơn hàng của bạn đã được xác nhận tự động.
+      </p>
+
+      <div
+        style="
+          background: #0b0f19;
+          border: 1px solid #374151;
+          padding: 1rem;
+          border-radius: 0.75rem;
+          margin-bottom: 1.5rem;
+          text-align: left;
+        "
+      >
+        <p style="margin: 0.2rem 0; color: #94a3b8; font-size: 0.9rem">
+          Tài khoản nhận: <b id="buyerEmailDisplay" style="color: #fff">...</b>
+        </p>
+        <p style="margin: 0.2rem 0; color: #94a3b8; font-size: 0.9rem">
+          Trạng thái: <b style="color: #10b981">Đã thanh toán (Active)</b>
         </p>
       </div>
 
-      <div class="freebies-grid">
-        <!-- Item 1 -->
-        <div class="freebie-card">
-          <div class="freebie-banner">🎬 Cinematic Teal & Orange LUTs</div>
-          <div class="freebie-body">
-            <h3 class="freebie-name">Teal & Orange Starter Pack</h3>
-            <p class="freebie-text">
-              Bộ màu cơ bản cực hợp cho các thước phim ngắn, vlog du lịch và
-              cinematic.
-            </p>
-            <div class="freebie-footer">
-              <span class="freebie-price">0đ</span>
-              <button
-                onclick="download('Teal & Orange Starter Pack', '#')"
-                class="btn-download"
-              >
-                Tải xuống ngay
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 2 -->
-        <div class="freebie-card">
-          <div class="freebie-banner">⚡ Smooth Transitions Pack</div>
-          <div class="freebie-body">
-            <h3 class="freebie-name">Essential Transitions</h3>
-            <p class="freebie-text">
-              Gói chuyển cảnh mượt mà kéo-thả trực tiếp cực nhanh cho DaVinci
-              Resolve.
-            </p>
-            <div class="freebie-footer">
-              <span class="freebie-price">0đ</span>
-              <button
-                onclick="download('Essential Transitions', '#')"
-                class="btn-download"
-              >
-                Tải xuống ngay
-              </button>
-            </div>
-          </div>
-        </div>
+      <!-- Khu vực nút tải xuống -->
+      <div id="downloadContent">
+        <a
+          href="#"
+          download
+          style="
+            display: block;
+            width: 100%;
+            background: #38bdf8;
+            color: #0b0f19;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+          "
+        >
+          📥 Tải xuống tập tin ngay
+        </a>
       </div>
-    </section>
 
-    <!-- Liên kết file JavaScript -->
-    <script src="script.js"></script>
+      <a
+        href="san_pham.html"
+        style="
+          display: block;
+          color: #94a3b8;
+          text-decoration: none;
+          font-size: 0.9rem;
+          margin-top: 1rem;
+        "
+      >
+        ← Quay lại trang sản phẩm
+      </a>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const isPaid = localStorage.getItem("CineForge_Paid");
+
+        if (!isPaid || isPaid !== "true") {
+          alert(
+            "Bạn chưa thanh toán đơn hàng nên chưa có quyền truy cập trang này!",
+          );
+          window.location.href = "gio_hang.html";
+          return;
+        }
+
+        // 1. Hiển thị email người mua
+        const buyerEmail =
+          localStorage.getItem("CineForge_Email") || "Khách hàng";
+        const emailDisplay = document.getElementById("buyerEmailDisplay");
+        if (emailDisplay) emailDisplay.textContent = buyerEmail;
+
+        // 2. Lấy thông tin sản phẩm
+        const savedProduct = localStorage.getItem("CineForge_Product");
+        const downloadContainer = document.getElementById("downloadContent");
+
+        if (savedProduct && downloadContainer) {
+          const product = JSON.parse(savedProduct);
+
+          // Lấy chính xác tên sản phẩm do Phúc đặt (không tự động gắn thêm đuôi linh tinh)
+          const fileName = product.name;
+
+          downloadContainer.innerHTML = `
+        <div style="background: #0b0f19; border: 1px solid #3b82f6; padding: 1rem; border-radius: 0.75rem; margin-bottom: 1rem; text-align: left;">
+          <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Sản phẩm của bạn:</p>
+          <p style="margin: 0.3rem 0 0 0; color: #fff; font-weight: 600; font-size: 0.95rem;">🎥 ${fileName}</p>
+        </div>
+        <a
+          href="${product.fileUrl}"
+          download="${fileName}"
+          style="
+            display: block;
+            width: 100%;
+            background: #38bdf8;
+            color: #0b0f19;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            font-size: 1rem;
+            box-sizing: border-box;
+            cursor: pointer;
+          "
+        >
+          📥 Tải xuống video ngay
+        </a>
+      `;
+        } else if (downloadContainer) {
+          downloadContainer.innerHTML = `
+        <p style="color: #ef4444; font-size: 0.9rem;">Không tìm thấy thông tin sản phẩm!</p>
+      `;
+        }
+      });
+    </script>
   </body>
 </html>

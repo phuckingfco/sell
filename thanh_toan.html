@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh toán đơn hàng - CineForge</title>
+    <link rel="icon" type="image/svg+xml" href="fabicon.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body
+    style="
+      background-color: #0b0f19;
+      color: #fff;
+      font-family: &quot;Inter&quot;, sans-serif;
+      margin: 0;
+      padding: 2rem 1rem;
+    "
+  >
+    <div
+      style="
+        max-width: 500px;
+        margin: 0 auto;
+        background: #121824;
+        border: 1px solid #1f2937;
+        padding: 2.5rem;
+        border-radius: 1.25rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        box-sizing: border-box;
+      "
+    >
+      <!-- Tiêu đề & Tổng tiền -->
+      <h2
+        style="
+          font-size: 1.5rem;
+          font-weight: 900;
+          margin-bottom: 0.5rem;
+          color: #38bdf8;
+          text-align: center;
+        "
+      >
+        Thanh toán đơn hàng
+      </h2>
+      <p
+        style="
+          text-align: center;
+          color: #94a3b8;
+          margin-bottom: 1.5rem;
+          font-size: 0.95rem;
+        "
+      >
+        Tổng thanh toán:
+        <span id="checkoutTotal" style="color: #38bdf8; font-weight: 700"
+          >0đ</span
+        >
+      </p>
+
+      <!-- Khu vực hiển thị Mã QR VietQR -->
+      <div class="qr-box">
+        <h3 class="section-title" style="margin-top: 0; margin-bottom: 0.5rem">
+          Quét mã QR để thanh toán
+        </h3>
+        <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem">
+          Sử dụng App Ngân hàng hoặc MoMo quét mã bên dưới
+        </p>
+
+        <div class="qr-image-wrapper">
+          <img
+            id="dynamicQRImg"
+            src="./img/QR.jpg"
+            alt="VietQR"
+            class="qr-image"
+          />
+        </div>
+
+        <div class="qr-info">
+          <p style="margin: 0.2rem 0">
+            Ngân hàng: <b style="color: #fff">Vietcombank (VCB)</b>
+          </p>
+          <p style="margin: 0.2rem 0">
+            Số tài khoản: <b class="stk-highlight">1024277260</b>
+          </p>
+          <p style="margin: 0.2rem 0">
+            Chủ STK: <b style="color: #fff">HO THANH TAM</b>
+          </p>
+          <p style="margin: 0.2rem 0">
+            Nội dung CK:
+            <b id="qrMemo" style="color: #38bdf8">CineForge Order</b>
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; flex-direction: column; gap: 0.75rem">
+        <button
+          onclick="handlePaidConfirm()"
+          style="
+            background: linear-gradient(135deg, #38bdf8, #3b82f6);
+            color: #fff;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+          "
+        >
+          Tôi đã chuyển khoản xong
+        </button>
+
+        <a
+          href="gio_hang.html"
+          style="
+            background: transparent;
+            color: #94a3b8;
+            border: 1px solid #374151;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: block;
+            box-sizing: border-box;
+          "
+        >
+          Quay lại giỏ hàng
+        </a>
+      </div>
+    </div>
+
+    <!-- Script xử lý tự động sinh QR theo tổng tiền giỏ hàng -->
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // 1. Kiểm tra ưu tiên sản phẩm Mua Ngay trước, nếu không có thì lấy từ Giỏ Hàng
+        let cart = [];
+        const directProduct = localStorage.getItem("CineForge_Product");
+
+        if (directProduct) {
+          try {
+            cart = [JSON.parse(directProduct)];
+          } catch (e) {
+            cart = [];
+          }
+        } else {
+          if (typeof getCart === "function") {
+            cart = getCart();
+          } else {
+            try {
+              cart = JSON.parse(localStorage.getItem("CineForge_Cart")) || [];
+            } catch (e) {
+              cart = [];
+            }
+          }
+        }
+
+        let totalAmount = 0;
+        cart.forEach((item) => {
+          totalAmount += Number(item.price || 0) * (Number(item.quantity) || 1);
+        });
+
+        const totalEl = document.getElementById("checkoutTotal");
+        if (totalEl) {
+          totalEl.textContent = totalAmount.toLocaleString("vi-VN") + "đ";
+        }
+
+        // Nếu thực sự không có sản phẩm nào thì mới báo lỗi
+        if (totalAmount === 0) {
+          alert("Giỏ hàng đang trống!");
+          window.location.href = "gio_hang.html";
+          return;
+        }
+
+        // Tạo nội dung chuyển khoản ngẫu nhiên gắn với đơn hàng
+        const memoText =
+          "CINEFORGE " + Math.floor(100000 + Math.random() * 900000);
+        const memoEl = document.getElementById("qrMemo");
+        if (memoEl) memoEl.textContent = memoText;
+
+        // Thông tin tài khoản chuẩn khớp với giao diện hiển thị phía trên
+        const stk = "1024277260";
+        const bankCode = "VCB";
+
+        // Link tự động tạo VietQR chuẩn không cần chỉnh
+        const qrUrl = `https://img.vietqr.io/image/${bankCode}-${stk}-compact2.png?amount=${totalAmount}&addInfo=${encodeURIComponent(memoText)}`;
+        const qrImg = document.getElementById("dynamicQRImg");
+        if (qrImg) qrImg.src = qrUrl;
+      });
+
+      // Khi khách bấm "Tôi đã chuyển khoản xong"
+      function handlePaidConfirm() {
+        const emailInput = document.getElementById("customerEmail");
+        const email = emailInput ? emailInput.value.trim() : "";
+
+        if (!email) {
+          alert("Vui lòng nhập email nhận link tải file!");
+          if (emailInput) emailInput.focus();
+          return;
+        }
+
+        // Hiệu ứng đang đối soát giả lập cho mượt
+        const loadingHTML = `
+      <div id="loadingOverlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-family: 'Inter', sans-serif;">
+        <div style="border: 4px solid #1f2937; border-top: 4px solid #38bdf8; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 1rem;"></div>
+        <h3 style="color: #38bdf8; margin-bottom: 0.5rem;">Đang kiểm tra giao dịch ngân hàng...</h3>
+        <p style="color: #94a3b8; font-size: 0.9rem;">Hệ thống đang đối chiếu số tiền và mã chuyển khoản.</p>
+      </div>
+      <style>
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      </style>
+    `;
+        document.body.insertAdjacentHTML("beforeend", loadingHTML);
+
+        // Sau 3 giây xác nhận thành công -> sang trang download.html
+        setTimeout(() => {
+          const currentProduct = localStorage.getItem("CineForge_Product");
+
+          localStorage.setItem("CineForge_Paid", "true");
+          localStorage.setItem("CineForge_Email", email);
+
+          if (currentProduct) {
+            localStorage.setItem("CineForge_Product", currentProduct);
+          }
+          localStorage.removeItem("CineForge_Cart");
+
+          window.location.href = "download.html";
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
