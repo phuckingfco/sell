@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Định nghĩa hiệu ứng nền gradient cho chữ C nếu muốn -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="100%" stop-color="#4facfe" />
+    </linearGradient>
+  </defs>
+
+  <!-- Nền đen bo góc với viền xanh cyan -->
+  <rect x="32" y="32" width="448" height="448" rx="112" fill="#0b0f19" stroke="#00f2fe" stroke-width="24" />
+
+  <!-- Chữ C màu xanh (được bo tròn đầu mút) -->
+  <path d="M 336 184 L 232 184 C 174.56 184 128 230.56 128 288 C 128 345.44 174.56 392 232 392 L 336 392" fill="none" stroke="url(#blueGrad)" stroke-width="64" stroke-linecap="round" />
+
+  <!-- Chữ F màu trắng lồng phía trên -->
+  <path d="M 232 128 L 336 128 M 232 236 L 312 236 M 232 128 L 232 384" fill="none" stroke="#ffffff" stroke-width="56" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

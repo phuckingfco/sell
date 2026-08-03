@@ -252,3 +252,25 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.complete-btn {
+  width: 100%;
+  background: #ffc439 !important;
+  color: #000000 !important;
+  border: none;
+  padding: 1rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: opacity 0.2s;
+}
+
+.logo-text {
+  padding-left: 255px;
+}
+
+.back-btn {
+  padding-right: 50px;
+}

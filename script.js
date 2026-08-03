@@ -28,59 +28,82 @@
 //   }
 // }
 
+let currentPaymentMethod = "card"; // Biến lưu trạng thái thanh toán hiện tại
+
 function switchPayment(type) {
-  const contentCard = document.getElementById("contentCard");
-  const contentPaypal = document.getElementById("contentPaypal");
-  const contentAlipay = document.getElementById("contentAlipay"); // Nếu có alipay
+  currentPaymentMethod = type; // Lưu lại loại đang chọn để dùng lúc bấm nút
 
-  const methodCard = document.getElementById("methodCard");
-  const methodPaypal = document.getElementById("methodPaypal");
-  const methodAlipay = document.getElementById("methodAlipay");
+  // Lấy các phần tử box và nội dung
+  const methods = ["card", "paypal", "alipay"];
 
-  const submitButton = document.getElementById("completeOrderBtn"); // Lấy cái nút bấm thanh toán ở dưới cùng
+  methods.forEach((m) => {
+    const box = document.getElementById(
+      "method" + m.charAt(0).toUpperCase() + m.slice(1),
+    );
+    const content = document.getElementById(
+      "content" + m.charAt(0).toUpperCase() + m.slice(1),
+    );
+    const submitBtn = document.getElementById("completeOrderBtn");
 
-  // Ẩn hết nội dung và reset style các ô chọn
-  if (contentCard) contentCard.classList.remove("show");
-  if (contentPaypal) contentPaypal.classList.remove("show");
-  if (contentAlipay) contentAlipay.classList.remove("show");
+    if (m === type) {
+      // Khi được chọn: đổi viền sáng lên, hiện nội dung
+      if (box) box.style.borderColor = "#ffffff";
+      if (content) content.style.display = "block";
 
-  if (methodCard) methodCard.style.background = "transparent";
-  if (methodPaypal) methodPaypal.style.background = "transparent";
-  if (methodAlipay) methodAlipay.style.background = "transparent";
-
-  // Hiển thị nội dung tương ứng với lựa chọn
-  if (type === "card" && contentCard && methodCard) {
-    contentCard.classList.add("show");
-    methodCard.style.background = "#18181b"; // màu nền khi được chọn
-    if (submitButton) {
-      submitButton.innerHTML = "Complete order";
-      submitButton.style.background = ""; // màu nút mặc định
+      // Đổi màu và tên nút thanh toán dựa theo phương thức
+      if (submitBtn) {
+        if (m === "paypal") {
+          submitBtn.style.background = "#ffc439";
+          submitBtn.style.color = "#000000";
+          submitBtn.innerHTML = "Pay with PayPal";
+        } else if (m === "alipay") {
+          submitBtn.style.background = "#00a3ee";
+          submitBtn.style.color = "#ffffff";
+          submitBtn.innerHTML = "Pay with Alipay";
+        } else {
+          submitBtn.style.background = ""; // Giữ nguyên màu gốc của nút Card
+          submitBtn.style.color = "";
+          submitBtn.innerHTML = "Complete order";
+        }
+      }
+    } else {
+      // Khi không được chọn: thu nhỏ viền lại, ẩn nội dung
+      if (box) box.style.borderColor = "#27272a";
+      if (content) content.style.display = "none";
     }
-  } else if (type === "paypal" && contentPaypal && methodPaypal) {
-    contentPaypal.classList.add("show");
-    methodPaypal.style.background = "#18181b";
-    if (submitButton) {
-      // Đổi sang nút màu vàng và chữ Pay with PayPal đặc trưng
-      submitButton.innerHTML =
-        'Pay with <span style="font-style: italic; font-weight: bold;">PayPal</span>';
-      submitButton.style.background = "#ffc439"; // màu vàng PayPal
-      submitButton.style.color = "#003087"; // chữ màu xanh PayPal
-    }
-  } else if (type === "alipay" && contentAlipay && methodAlipay) {
-    contentAlipay.classList.add("show");
-    methodAlipay.style.background = "#18181b";
-    if (submitButton) {
-      submitButton.innerHTML = "Complete order";
-      submitButton.style.background = "";
-    }
+  });
+}
+
+// Hàm xử lý khi bấm nút Complete order / Pay with... để ép chuyển trang ngoài
+function handleCompleteOrder() {
+  const emailInput = document.getElementById("buyerEmail");
+  if (emailInput && !emailInput.value.trim()) {
+    alert("Vui lòng nhập email trước khi tiếp tục!");
+    emailInput.focus();
+    return;
+  }
+
+  // Chuyển hướng ra trang ngoài tương ứng với phương thức đang chọn
+  if (currentPaymentMethod === "paypal") {
+    window.location.href = "https://www.paypal.com";
+  } else if (currentPaymentMethod === "alipay") {
+    window.location.href = "global.alipay.com";
+  } else {
+    // Xử lý thanh toán thẻ (Card)
+    alert("Đang xử lý thanh toán qua Thẻ...");
   }
 }
 
-// --- 2. KHỞI TẠO KHI TẢI TRANG ---
+// --- KHỞI TẠO ĐÚNG CÁCH (Không làm đứt sự kiện cũ) ---
 document.addEventListener("DOMContentLoaded", () => {
-  switchPayment("card");
-  updateUserInterface();
-  updateCartCount();
+  // Kiểm tra nếu đang ở trang thanh toán thì mới gọi switchPayment
+  if (document.getElementById("methodCard")) {
+    switchPayment("card");
+  }
+
+  // Các hàm khởi tạo khác của Phúc giữ nguyên
+  if (typeof updateUserInterface === "function") updateUserInterface();
+  if (typeof updateCartCount === "function") updateCartCount();
 
   const cartBtn = document.querySelector(".cart-btn");
   if (cartBtn) {
@@ -307,33 +330,34 @@ document.addEventListener("DOMContentLoaded", () => {
 // }
 
 // --- XỬ LÝ KHI BẤM HOÀN TẤT THANH TOÁN ---
+
 function handleCompleteOrder() {
-  const emailInput = document.getElementById("buyerEmail")
-    ? document.getElementById("buyerEmail").value
-    : "";
-  const finalEmail = emailInput ? emailInput : "hpgyuc23612361@gmail.com";
+  const emailInput = document.getElementById("buyerEmail");
+  if (emailInput && !emailInput.value.trim()) {
+    alert("Vui lòng nhập email trước khi tiếp tục!");
+    emailInput.focus();
+    return;
+  }
 
-  localStorage.setItem("CineForge_Email", finalEmail);
+  // Cấu hình kích thước cửa sổ popup thu nhỏ (rộng 600, cao 700)
+  const popupOptions = "width=600,height=700,scrollbars=yes,resizable=yes";
 
-  // Kiểm tra xem phương thức PayPal có đang được chọn không
-  const isPaypalSelected =
-    document.getElementById("contentPaypal") &&
-    document.getElementById("contentPaypal").classList.contains("show");
-
-  if (isPaypalSelected) {
-    // --- DÁN LỆNH MỞ POPUP PAYPAL Ở ĐÂY ---
-    window.open(
-      "https://www.paypal.com/signin",
-      "PayPalCheckout",
-      "width=500,height=650,scrollbars=yes",
-    );
+  if (currentPaymentMethod === "paypal") {
+    // Gọi link SDK hoặc link checkout chuẩn của PayPal
+    window.open("https://www.paypal.com/signin", "_blank", popupOptions);
+  } else if (currentPaymentMethod === "alipay") {
+    window.open("https://global.alipay.com", "_blank", popupOptions);
   } else {
-    // Nếu thanh toán bằng Card hoặc hình thức khác thì chạy luồng bình thường
-    localStorage.setItem("CineForge_Paid", "true");
-    alert("Thanh toán thành công!");
-    window.location.href = "download.html";
+    alert("Đang xử lý thanh toán qua Thẻ...");
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const submitBtn = document.getElementById("completeOrderBtn");
+  if (submitBtn) {
+    submitBtn.onclick = handleCompleteOrder;
+  }
+});
 
 // --- 4. QUẢN LÝ ĐĂNG NHẬP ---
 function setupLoginModal() {
@@ -568,3 +592,143 @@ function handleAddToCart(productID, productName, productPrice) {
   localStorage.setItem("cart", JSON.stringify(cart));
   alert("Đã thêm sản phẩm vào giỏ hàng!");
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Ép trạng thái ban đầu chuẩn xác là Card
+  const contentCard = document.getElementById("contentCard");
+  const contentPaypal = document.getElementById("contentPaypal");
+  const contentAlipay = document.getElementById("contentAlipay");
+  const methodCard = document.getElementById("methodCard");
+  const submitButton = document.getElementById("completeOrderBtn");
+
+  if (contentCard) contentCard.classList.add("show");
+  if (contentPaypal) contentPaypal.classList.remove("show");
+  if (contentAlipay) contentAlipay.classList.remove("show");
+  if (methodCard) methodCard.style.background = "#18181b";
+
+  if (submitButton) {
+    submitButton.innerHTML = "Complete order";
+    submitButton.style.background = "#fff";
+    submitButton.style.color = "#000";
+  }
+
+  updateUserInterface();
+  updateCartCount();
+
+  // ... (giữ nguyên các phần quét giỏ hàng / download bên dưới của Phúc)
+  const isCheckoutPage =
+    window.location.pathname.includes("thanh_toan.html") ||
+    document.getElementById("checkoutItemsList");
+
+  if (isCheckoutPage) {
+    let cart = [];
+    const possibleKeys = [
+      "CineForge_Cart",
+      "cart",
+      "shopping_cart",
+      "CineForge_Product",
+    ];
+    for (let key of possibleKeys) {
+      try {
+        const data = JSON.parse(localStorage.getItem(key));
+        if (data) {
+          if (Array.isArray(data) && data.length > 0) {
+            cart = data;
+            break;
+          } else if (!Array.isArray(data) && data.price) {
+            cart.push({ ...data, quantity: data.quantity || 1 });
+            break;
+          }
+        }
+      } catch (e) {}
+    }
+
+    if (cart.length === 0) {
+      cart = [
+        { name: "VIDEO DEMO 2", price: 25000, quantity: 2 },
+        { name: "VIDEO DEMO 1", price: 15000, quantity: 1 },
+      ];
+    }
+
+    let totalQuantity = 0;
+    let totalPriceVnd = 0;
+    cart.forEach((item) => {
+      const qty = parseInt(item.quantity) || 1;
+      totalQuantity += qty;
+      totalPriceVnd += (parseInt(item.price) || 0) * qty;
+    });
+
+    const formattedUsdTotal = (totalPriceVnd / 25000).toFixed(2);
+    const subtotalTextEl = document.getElementById("subtotalItemText");
+    const subtotalVndEl = document.getElementById("subtotalVnd");
+    const totalVndEl = document.getElementById("totalVnd");
+    const totalUsdEl = document.getElementById("totalUsd");
+    const itemsListContainer = document.getElementById("checkoutItemsList");
+
+    if (subtotalTextEl) {
+      subtotalTextEl.textContent = `Subtotal (${totalQuantity} item${totalQuantity > 1 ? "s" : ""})`;
+    }
+    if (subtotalVndEl) {
+      subtotalVndEl.textContent = totalPriceVnd.toLocaleString("vi-VN") + " đ";
+    }
+    if (totalVndEl) {
+      totalVndEl.textContent = totalPriceVnd.toLocaleString("vi-VN") + " đ";
+    }
+    if (totalUsdEl) {
+      totalUsdEl.textContent = `USD $${formattedUsdTotal}`;
+    }
+
+    if (itemsListContainer && cart.length > 0) {
+      let itemsHTML = "";
+      cart.forEach((item) => {
+        const itemQty = parseInt(item.quantity) || 1;
+        const itemPrice = parseInt(item.price) || 0;
+        const itemTotal = itemPrice * itemQty;
+        const itemUsd = (itemTotal / 25000).toFixed(2);
+        const itemImage =
+          item.image ||
+          item.img ||
+          item.thumbnail ||
+          item.poster ||
+          "fabicon.svg";
+
+        itemsHTML += `
+          <div class="summary-item" style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 1px solid #1f2937;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div class="product-icon-box" style="position: relative; background: #1f2937; width: 48px; height: 48px; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                <img src="${itemImage}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='fabicon.svg'">
+                <span class="item-badge" style="position: absolute; top: -5px; left: -5px; background: #374151; color: #fff; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 1px solid #1f2937; z-index: 2;">${itemQty}</span>
+              </div>
+              <div>
+                <div style="font-weight: 600; font-size: 0.9rem; color: #fff;">${item.name}</div>
+                <div style="font-size: 0.8rem; color: #a1a1aa;">Digital product</div>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-weight: 600; font-size: 0.9rem; color: #fff;">${itemPrice.toLocaleString("vi-VN")} đ x ${itemQty}</div>
+              <div style="font-size: 0.75rem; color: #a1a1aa;">($${itemUsd})</div>
+            </div>
+          </div>
+        `;
+      });
+      itemsListContainer.innerHTML = itemsHTML;
+    }
+  }
+
+  setupLoginModal();
+});
+
+// HOME
+document.addEventListener("DOMContentLoaded", () => {
+  // Tìm tới class hoặc ID của logo CineForge (Ví dụ logo có class là .logo hoặc .brand-name)
+  const logoElement =
+    document.querySelector(".logo") || document.querySelector(".brand");
+
+  if (logoElement) {
+    logoElement.style.cursor = "pointer"; // Đổi con trỏ chuột thành hình bàn tay khi rê vào
+    logoElement.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "./index.html"; // Đường dẫn trỏ về trang chủ của Phúc
+    });
+  }
+});

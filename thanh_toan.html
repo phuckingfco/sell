@@ -31,7 +31,12 @@
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
           </a>
-          <span class="logo-text">CF</span>
+          <span class="logo-text"
+            ><img
+              src="./img/CF_img.svg"
+              alt="CF Logo"
+              style="width: 48px; height: 48px; border-radius: 12px"
+          /></span>
         </div>
 
         <div style="margin-bottom: 1.5rem">
@@ -76,134 +81,199 @@
             Payment
           </div>
 
-          <div class="payment-box">
-            <!-- 1. Thẻ Card -->
+          <div
+            class="payment-methods-container"
+            style="display: flex; flex-direction: column; gap: 1rem"
+          >
+            <!-- Cục 1: Card (Khi chọn sẽ bung form nhập thẻ bên trong) -->
             <div
-              class="payment-method"
+              class="payment-box"
               id="methodCard"
               onclick="switchPayment('card')"
+              style="
+                border: 1px solid #27272a;
+                border-radius: 1rem;
+                padding: 1rem;
+                background: #121214;
+                cursor: pointer;
+                transition: all 0.2s;
+              "
             >
               <div
                 style="
                   display: flex;
                   align-items: center;
-                  gap: 0.5rem;
-                  font-weight: 500;
-                  font-size: 0.95rem;
+                  gap: 0.75rem;
+                  font-weight: 600;
+                  color: #fff;
                 "
               >
-                💳 Card
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                  <line x1="1" y1="10" x2="23" y2="10"></line>
+                </svg>
+                Card
               </div>
-            </div>
-            <div class="payment-option-content show" id="contentCard">
-              <div style="position: relative">
-                <input
-                  type="text"
-                  class="input-field card-input-padding"
-                  placeholder="Card number"
-                  autocomplete="off"
-                  readonly
-                  onfocus="this.removeAttribute('readonly')"
-                />
-                <div class="card-brands">
-                  <span
-                    style="
-                      background: #1a1f71;
-                      color: #fff;
-                      padding: 2px 3px;
-                      border-radius: 2px;
-                    "
-                    >VISA</span
-                  >
-                  <span
-                    style="
-                      background: #eb001b;
-                      color: #fff;
-                      padding: 2px 3px;
-                      border-radius: 2px;
-                    "
-                    >MC</span
-                  >
-                  <span
-                    style="
-                      background: #006fcf;
-                      color: #fff;
-                      padding: 2px 3px;
-                      border-radius: 2px;
-                    "
-                    >AMEX</span
-                  >
-                  <span
-                    style="
-                      background: #ff5f00;
-                      color: #fff;
-                      padding: 2px 3px;
-                      border-radius: 2px;
-                    "
-                    >JCB</span
-                  >
-                </div>
-              </div>
-              <div class="card-inputs-grid">
+              <div
+                id="contentCard"
+                class="payment-content"
+                style="
+                  display: none;
+                  margin-top: 1rem;
+                  padding-top: 1rem;
+                  border-top: 1px solid #27272a;
+                "
+              >
                 <input
                   type="text"
                   class="input-field"
-                  placeholder="MM / YY"
+                  placeholder="Card number"
                   autocomplete="off"
-                  readonly
-                  onfocus="this.removeAttribute('readonly')"
+                  style="margin-bottom: 0.75rem"
                 />
-                <div style="position: relative">
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 0.75rem;
+                  "
+                >
+                  <input
+                    type="text"
+                    class="input-field"
+                    placeholder="MM / YY"
+                    autocomplete="off"
+                  />
                   <input
                     type="text"
                     class="input-field"
                     placeholder="CVC"
                     autocomplete="off"
-                    readonly
-                    onfocus="this.removeAttribute('readonly')"
                   />
-                  <span class="cvc-icon">🔒</span>
                 </div>
               </div>
             </div>
 
-            <!-- 2. PayPal -->
+            <!-- Cục 2: PayPal -->
             <div
-              class="payment-method"
+              class="payment-box"
               id="methodPaypal"
               onclick="switchPayment('paypal')"
+              style="
+                border: 1px solid #27272a;
+                border-radius: 1rem;
+                padding: 1rem;
+                background: #121214;
+                cursor: pointer;
+                transition: all 0.2s;
+              "
             >
-              <span style="font-weight: 500; font-size: 0.95rem"
-                >🅿️ PayPal</span
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.75rem;
+                  font-weight: 600;
+                  color: #fff;
+                "
               >
-            </div>
-            <div class="payment-option-content" id="contentPaypal">
-              <div class="gateway-info-box">
-                <span>🪟</span>
-                <span
-                  >After submission, you'll be guided through completing next
-                  steps with PayPal.</span
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
                 >
+                  <path d="M7 17l9-9M7 8h9v9"></path>
+                </svg>
+                PayPal
+              </div>
+              <div
+                id="contentPaypal"
+                class="payment-content"
+                style="
+                  display: none;
+                  margin-top: 1rem;
+                  padding-top: 1rem;
+                  border-top: 1px solid #27272a;
+                "
+              >
+                <p style="color: #a1a1aa; font-size: 0.85rem">
+                  Thanh toán nhanh chóng và an toàn qua cổng PayPal.
+                </p>
               </div>
             </div>
 
-            <!-- 3. Alipay -->
+            <!-- Cục 3: Alipay -->
             <div
-              class="payment-method"
+              class="payment-box"
               id="methodAlipay"
               onclick="switchPayment('alipay')"
+              style="
+                border: 1px solid #27272a;
+                border-radius: 1rem;
+                padding: 1rem;
+                background: #121214;
+                cursor: pointer;
+                transition: all 0.2s;
+              "
             >
-              <span style="font-weight: 500; font-size: 0.95rem"
-                >💙 Alipay</span
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.75rem;
+                  font-weight: 600;
+                  color: #fff;
+                "
               >
-            </div>
-            <div class="payment-option-content" id="contentAlipay">
-              <div class="gateway-info-box">
-                <span>🪟</span>
-                <span
-                  >After submission, you will be redirected to securely complete
-                  next steps.</span
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#38bdf8"
+                  stroke-width="2"
                 >
+                  <path d="M4 12h16M12 4v16"></path>
+                </svg>
+                Alipay
+              </div>
+              <div
+                id="contentAlipay"
+                class="payment-content"
+                style="
+                  display: none;
+                  margin-top: 1rem;
+                  padding-top: 1rem;
+                  border-top: 1px solid #27272a;
+                "
+              >
+                <div
+                  style="
+                    background: #18181b;
+                    border: 1px solid #27272a;
+                    border-radius: 0.75rem;
+                    padding: 0.75rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                  "
+                >
+                  <span style="font-size: 1.2rem">🪟</span>
+                  <span style="color: #a1a1aa; font-size: 0.85rem"
+                    >After submission, you will be redirected to securely
+                    complete next steps.</span
+                  >
+                </div>
               </div>
             </div>
           </div>
