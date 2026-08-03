@@ -15,6 +15,11 @@
       font-family: &quot;Inter&quot;, sans-serif;
     "
   >
+    <div id="cartItemsContainer">
+      <!-- Danh sách sản phẩm bấm + - sẽ được tự động render vào đây -->
+    </div>
+    <!-- Đoạn HTML của một sản phẩm trong giỏ hàng -->
+
     <div
       style="
         max-width: 800px;
@@ -30,9 +35,7 @@
         Giỏ Hàng Của Bạn
       </h2>
 
-      <div id="cartItemsContainer" style="margin-bottom: 2rem; color: #94a3b8">
-        <!-- Danh sách sản phẩm sẽ được load tự động bằng JS -->
-      </div>
+      <div id="cartItemsContainer"></div>
 
       <div
         style="
@@ -101,10 +104,9 @@
         </a>
       </div>
     </div>
-
     <script src="script.js"></script>
     <script>
-      // Hàm hiển thị danh sách sản phẩm trong giỏ hàng
+      // Hàm hiển thị danh sách sản phẩm trong giỏ hàng kèm cụm nút + -
       function renderCartPage() {
         const cart = getCart();
         const container = document.getElementById("cartItemsContainer");
@@ -123,30 +125,68 @@
           return;
         }
 
-        // Nếu giỏ hàng có sản phẩm (hiển thị danh sách)
+        // Nếu giỏ hàng có sản phẩm
         let html = "";
         let totalAmount = 0;
 
         cart.forEach((item, index) => {
-          const itemTotal = item.price * (item.quantity || 1);
+          const quantity = item.quantity || 1;
+          const itemTotal = Number(item.price) * quantity;
           totalAmount += itemTotal;
+
+          // Ưu tiên dùng id, nếu không có thì lấy index làm định danh cho nút + -
+          const identifier = item.id !== undefined ? `'${item.id}'` : index;
+
           html += `
-            <div style="display: flex; justify-content: space-between; align-items: center; background: #0b0f19; padding: 1rem; border-radius: 0.5rem; margin-bottom: 0.75rem; border: 1px solid #374151;">
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #0b0f19; padding: 1rem; border-radius: 0.75rem; border: 1px solid #1f2937; margin-bottom: 0.75rem;">
               <div>
-                <h4 style="color: #fff; margin-bottom: 0.25rem;">${item.name}</h4>
-                <p style="color: #38bdf8; font-size: 0.9rem;">${item.price.toLocaleString()}đ x ${item.quantity || 1}</p>
+                <div style="font-weight: 600; color: #fff; margin-bottom: 0.25rem">${item.name}</div>
+                <div style="color: #38bdf8; font-size: 0.9rem">${Number(item.price).toLocaleString("vi-VN")}đ x ${quantity}</div>
               </div>
-              <button onclick="removeItem(${index})" style="background: #ef4444; color: #fff; border: none; padding: 0.4rem 0.8rem; border-radius: 0.3rem; cursor: pointer; font-size: 0.85rem;">Xóa</button>
+
+              <div style="display: flex; align-items: center; gap: 1rem;">
+                <!-- Cụm nút + - -->
+                <div style="display: flex; align-items: center; background: #121824; border: 1px solid #374151; border-radius: 0.5rem; overflow: hidden;">
+                  <button onclick="updateItemQuantity(${identifier}, -1)" style="background: transparent; border: none; color: #fff; padding: 0.25rem 0.75rem; cursor: pointer; font-weight: bold;">-</button>
+                  <span style="padding: 0 0.5rem; color: #fff; font-size: 0.9rem; min-width: 20px; text-align: center;">${quantity}</span>
+                  <button onclick="updateItemQuantity(${identifier}, 1)" style="background: transparent; border: none; color: #fff; padding: 0.25rem 0.75rem; cursor: pointer; font-weight: bold;">+</button>
+                </div>
+
+                <!-- Nút Xóa -->
+                <button onclick="removeItem(${index})" style="background: #ef4444; color: #fff; border: none; padding: 0.4rem 0.8rem; border-radius: 0.5rem; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Xóa</button>
+              </div>
             </div>
           `;
         });
 
         container.innerHTML = html;
-        if (totalPriceEl)
-          totalPriceEl.textContent = totalAmount.toLocaleString() + "đ";
+        if (totalPriceEl) {
+          totalPriceEl.textContent = totalAmount.toLocaleString("vi-VN") + "đ";
+        }
       }
 
-      // Hàm xóa từng sản phẩm trong giỏ
+      // Hàm tăng giảm số lượng sản phẩm
+      function updateItemQuantity(identifier, change) {
+        let cart = getCart();
+        let product;
+
+        if (typeof identifier === "string") {
+          product = cart.find((item) => item.id === identifier);
+        } else {
+          product = cart[identifier];
+        }
+
+        if (product) {
+          product.quantity = (parseInt(product.quantity) || 1) + change;
+          if (product.quantity < 1) {
+            product.quantity = 1;
+          }
+          saveCart(cart);
+          renderCartPage();
+        }
+      }
+
+      // Hàm xóa sản phẩm
       function removeItem(index) {
         let cart = getCart();
         cart.splice(index, 1);

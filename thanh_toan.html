@@ -4,224 +4,256 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thanh toán đơn hàng - CineForge</title>
-    <link rel="icon" type="image/svg+xml" href="fabicon.svg" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="thanh_toan.css" />
+    <link rel="icon" type="image/svg+xml" href="fabicon.svg" />
   </head>
-  <body
-    style="
-      background-color: #0b0f19;
-      color: #fff;
-      font-family: &quot;Inter&quot;, sans-serif;
-      margin: 0;
-      padding: 2rem 1rem;
-    "
-  >
-    <div
-      style="
-        max-width: 500px;
-        margin: 0 auto;
-        background: #121824;
-        border: 1px solid #1f2937;
-        padding: 2.5rem;
-        border-radius: 1.25rem;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
-        box-sizing: border-box;
-      "
-    >
-      <!-- Tiêu đề & Tổng tiền -->
-      <h2
-        style="
-          font-size: 1.5rem;
-          font-weight: 900;
-          margin-bottom: 0.5rem;
-          color: #38bdf8;
-          text-align: center;
-        "
-      >
-        Thanh toán đơn hàng
-      </h2>
-      <p
-        style="
-          text-align: center;
-          color: #94a3b8;
-          margin-bottom: 1.5rem;
-          font-size: 0.95rem;
-        "
-      >
-        Tổng thanh toán:
-        <span id="checkoutTotal" style="color: #38bdf8; font-weight: 700"
-          >0đ</span
-        >
-      </p>
+  <body>
+    <div class="checkout-container">
+      <!-- CỘT TRÁI -->
+      <div>
+        <!-- Logo Area & Nút Back -->
+        <div class="logo-area">
+          <a href="./san_pham.html" class="back-btn" title="Quay lại">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </a>
+          <span class="logo-text">CF</span>
+        </div>
 
-      <!-- Khu vực hiển thị Mã QR VietQR -->
-      <div class="qr-box">
-        <h3 class="section-title" style="margin-top: 0; margin-bottom: 0.5rem">
-          Quét mã QR để thanh toán
-        </h3>
-        <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem">
-          Sử dụng App Ngân hàng hoặc MoMo quét mã bên dưới
-        </p>
-
-        <div class="qr-image-wrapper">
-          <img
-            id="dynamicQRImg"
-            src="./img/QR.jpg"
-            alt="VietQR"
-            class="qr-image"
+        <div style="margin-bottom: 1.5rem">
+          <div class="section-label">Contact</div>
+          <input
+            type="email"
+            id="buyerEmail"
+            class="input-field"
+            placeholder="Email"
+            autocomplete="off"
+            required
           />
+          <label class="checkbox-container">
+            <input type="checkbox" checked />
+            Contact me about new announcements
+          </label>
         </div>
 
-        <div class="qr-info">
-          <p style="margin: 0.2rem 0">
-            Ngân hàng: <b style="color: #fff">Vietcombank (VCB)</b>
-          </p>
-          <p style="margin: 0.2rem 0">
-            Số tài khoản: <b class="stk-highlight">1024277260</b>
-          </p>
-          <p style="margin: 0.2rem 0">
-            Chủ STK: <b style="color: #fff">HO THANH TAM</b>
-          </p>
-          <p style="margin: 0.2rem 0">
-            Nội dung CK:
-            <b id="qrMemo" style="color: #38bdf8">CineForge Order</b>
-          </p>
+        <div style="margin-bottom: 1.5rem">
+          <div class="section-label" style="margin-bottom: 0.75rem">
+            Billing Address
+          </div>
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem"
+          >
+            <select class="input-field select-custom">
+              <option value="VN">Vietnam</option>
+              <option value="US">United States</option>
+              <option value="UK">United Kingdom</option>
+            </select>
+            <input
+              type="text"
+              class="input-field"
+              placeholder="Postal code"
+              autocomplete="off"
+            />
+          </div>
         </div>
+
+        <div>
+          <div class="section-label" style="margin-bottom: 0.75rem">
+            Payment
+          </div>
+
+          <div class="payment-box">
+            <!-- 1. Thẻ Card -->
+            <div
+              class="payment-method"
+              id="methodCard"
+              onclick="switchPayment('card')"
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  font-weight: 500;
+                  font-size: 0.95rem;
+                "
+              >
+                💳 Card
+              </div>
+            </div>
+            <div class="payment-option-content show" id="contentCard">
+              <div style="position: relative">
+                <input
+                  type="text"
+                  class="input-field card-input-padding"
+                  placeholder="Card number"
+                  autocomplete="off"
+                  readonly
+                  onfocus="this.removeAttribute('readonly')"
+                />
+                <div class="card-brands">
+                  <span
+                    style="
+                      background: #1a1f71;
+                      color: #fff;
+                      padding: 2px 3px;
+                      border-radius: 2px;
+                    "
+                    >VISA</span
+                  >
+                  <span
+                    style="
+                      background: #eb001b;
+                      color: #fff;
+                      padding: 2px 3px;
+                      border-radius: 2px;
+                    "
+                    >MC</span
+                  >
+                  <span
+                    style="
+                      background: #006fcf;
+                      color: #fff;
+                      padding: 2px 3px;
+                      border-radius: 2px;
+                    "
+                    >AMEX</span
+                  >
+                  <span
+                    style="
+                      background: #ff5f00;
+                      color: #fff;
+                      padding: 2px 3px;
+                      border-radius: 2px;
+                    "
+                    >JCB</span
+                  >
+                </div>
+              </div>
+              <div class="card-inputs-grid">
+                <input
+                  type="text"
+                  class="input-field"
+                  placeholder="MM / YY"
+                  autocomplete="off"
+                  readonly
+                  onfocus="this.removeAttribute('readonly')"
+                />
+                <div style="position: relative">
+                  <input
+                    type="text"
+                    class="input-field"
+                    placeholder="CVC"
+                    autocomplete="off"
+                    readonly
+                    onfocus="this.removeAttribute('readonly')"
+                  />
+                  <span class="cvc-icon">🔒</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. PayPal -->
+            <div
+              class="payment-method"
+              id="methodPaypal"
+              onclick="switchPayment('paypal')"
+            >
+              <span style="font-weight: 500; font-size: 0.95rem"
+                >🅿️ PayPal</span
+              >
+            </div>
+            <div class="payment-option-content" id="contentPaypal">
+              <div class="gateway-info-box">
+                <span>🪟</span>
+                <span
+                  >After submission, you'll be guided through completing next
+                  steps with PayPal.</span
+                >
+              </div>
+            </div>
+
+            <!-- 3. Alipay -->
+            <div
+              class="payment-method"
+              id="methodAlipay"
+              onclick="switchPayment('alipay')"
+            >
+              <span style="font-weight: 500; font-size: 0.95rem"
+                >💙 Alipay</span
+              >
+            </div>
+            <div class="payment-option-content" id="contentAlipay">
+              <div class="gateway-info-box">
+                <span>🪟</span>
+                <span
+                  >After submission, you will be redirected to securely complete
+                  next steps.</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          id="completeOrderBtn"
+          onclick="handleCompleteOrder()"
+          class="complete-btn"
+        >
+          Complete order
+        </button>
       </div>
 
-      <!-- Action Buttons -->
-      <div style="display: flex; flex-direction: column; gap: 0.75rem">
-        <button
-          onclick="handlePaidConfirm()"
-          style="
-            background: linear-gradient(135deg, #38bdf8, #3b82f6);
-            color: #fff;
-            border: none;
-            padding: 0.9rem;
-            border-radius: 0.75rem;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1rem;
-            width: 100%;
-            box-sizing: border-box;
-          "
-        >
-          Tôi đã chuyển khoản xong
-        </button>
+      <!-- CỘT PHẢI -->
+      <div>
+        <div class="summary-card">
+          <!-- Vùng chứa danh sách sản phẩm tự động render -->
+          <div id="checkoutItemsList">
+            <!-- JavaScript sẽ tự động điền danh sách sản phẩm vào đây -->
+          </div>
 
-        <a
-          href="gio_hang.html"
-          style="
-            background: transparent;
-            color: #94a3b8;
-            border: 1px solid #374151;
-            padding: 0.75rem;
-            border-radius: 0.75rem;
-            text-align: center;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            display: block;
-            box-sizing: border-box;
-          "
-        >
-          Quay lại giỏ hàng
-        </a>
+          <div class="summary-row">
+            <span id="subtotalItemText">Subtotal (0 items)</span>
+            <span id="subtotalVnd">0 đ</span>
+          </div>
+
+          <div class="summary-row total">
+            <span>Total</span>
+            <div style="text-align: right">
+              <span id="totalVnd" style="color: #fff; font-size: 1.1rem"
+                >0 đ</span
+              >
+              <div
+                id="totalUsd"
+                style="font-size: 0.8rem; color: #a1a1aa; font-weight: normal"
+              >
+                USD $0.00
+              </div>
+            </div>
+          </div>
+
+          <button class="promo-link" type="button">
+            <span>Promo code or gift card</span>
+            <span>⌵</span>
+          </button>
+        </div>
       </div>
     </div>
-
-    <!-- Script xử lý tự động sinh QR theo tổng tiền giỏ hàng -->
     <script src="script.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // 1. Kiểm tra ưu tiên sản phẩm Mua Ngay trước, nếu không có thì lấy từ Giỏ Hàng
-        let cart = [];
-        const directProduct = localStorage.getItem("CineForge_Product");
-
-        if (directProduct) {
-          try {
-            cart = [JSON.parse(directProduct)];
-          } catch (e) {
-            cart = [];
-          }
-        } else {
-          if (typeof getCart === "function") {
-            cart = getCart();
-          } else {
-            try {
-              cart = JSON.parse(localStorage.getItem("CineForge_Cart")) || [];
-            } catch (e) {
-              cart = [];
-            }
-          }
-        }
-
-        let totalAmount = 0;
-        cart.forEach((item) => {
-          totalAmount += Number(item.price || 0) * (Number(item.quantity) || 1);
-        });
-
-        const totalEl = document.getElementById("checkoutTotal");
-        if (totalEl) {
-          totalEl.textContent = totalAmount.toLocaleString("vi-VN") + "đ";
-        }
-
-        // Nếu thực sự không có sản phẩm nào thì mới báo lỗi
-        if (totalAmount === 0) {
-          alert("Giỏ hàng đang trống!");
-          window.location.href = "gio_hang.html";
-          return;
-        }
-
-        // Tạo nội dung chuyển khoản ngẫu nhiên gắn với đơn hàng
-        const memoText =
-          "CINEFORGE " + Math.floor(100000 + Math.random() * 900000);
-        const memoEl = document.getElementById("qrMemo");
-        if (memoEl) memoEl.textContent = memoText;
-
-        // Thông tin tài khoản chuẩn khớp với giao diện hiển thị phía trên
-        const stk = "1024277260";
-        const bankCode = "VCB";
-
-        // Link tự động tạo VietQR chuẩn không cần chỉnh
-        const qrUrl = `https://img.vietqr.io/image/${bankCode}-${stk}-compact2.png?amount=${totalAmount}&addInfo=${encodeURIComponent(memoText)}`;
-        const qrImg = document.getElementById("dynamicQRImg");
-        if (qrImg) qrImg.src = qrUrl;
-      });
-
-      // Khi khách bấm "Tôi đã chuyển khoản xong"
-      function handlePaidConfirm() {
-        // Hiệu ứng đang đối soát giả lập cho mượt
-        const loadingHTML = `
-      <div id="loadingOverlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-family: 'Inter', sans-serif;">
-        <div style="border: 4px solid #1f2937; border-top: 4px solid #38bdf8; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 1rem;"></div>
-        <h3 style="color: #38bdf8; margin-bottom: 0.5rem;">Đang kiểm tra giao dịch ngân hàng...</h3>
-        <p style="color: #94a3b8; font-size: 0.9rem;">Hệ thống đang đối chiếu số tiền và mã chuyển khoản.</p>
-      </div>
-      <style>
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-      </style>
-    `;
-        document.body.insertAdjacentHTML("beforeend", loadingHTML);
-
-        // Sau 3 giây xác nhận thành công -> sang trang download.html
-        setTimeout(() => {
-          const currentProduct = localStorage.getItem("CineForge_Product");
-
-          localStorage.setItem("CineForge_Paid", "true");
-
-          if (currentProduct) {
-            localStorage.setItem("CineForge_Product", currentProduct);
-          }
-          localStorage.removeItem("CineForge_Cart");
-
-          window.location.href = "download.html";
-        }, 3000);
-      }
-    </script>
   </body>
 </html>

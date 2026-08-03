@@ -1119,3 +1119,28 @@ body {
   font-weight: 700;
   letter-spacing: 0.5px;
 }
+
+/* Khung bọc chung cho toàn bộ nội dung giỏ hàng */
+.cart-wrapper {
+  max-width: 650px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* Ép các dòng sản phẩm trong giỏ hàng co lại đúng bằng khung */
+#cartItemsContainer > div {
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box;
+}
+
+/* Khóa kích thước khung thanh toán bằng với khung giỏ hàng */
+body > div {
+  max-width: 650px !important;
+  margin: 2rem auto !important;
+  box-sizing: border-box;
+}
+
+/* Back top-left */
