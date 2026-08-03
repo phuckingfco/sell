@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết sản phẩm - CineForge</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Poppins:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- File CSS chung -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <header>
+      <div class="nav-container">
+        <div class="logo">CINEFORGE</div>
+        <ul class="nav-links">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="danh_muc.html">Danh mục</a></li>
+          <li><a href="san_pham.html">Sản phẩm Hot</a></li>
+          <li><a href="free.html">Miễn phí (Freebies)</a></li>
+          <li><a href="help.html">Hướng dẫn</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="login.html" class="login-btn">Đăng nhập</a>
+          <a href="gio_hang.html" class="cart-btn">Giỏ hàng (0)</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Product Detail Section (Bố cục xếp dọc, video to nằm trên, thông tin nằm dưới) -->
+    <div
+      class="product-detail-container"
+      style="
+        max-width: 900px;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+      "
+    >
+      <!-- SẢN PHẨM 1 -->
+      <div
+        style="
+          background: #121824;
+          border: 1px solid var(--border-color);
+          border-radius: 1.25rem;
+          padding: 2.5rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        "
+      >
+        <span
+          class="hero-badge"
+          style="margin-bottom: 1rem; display: inline-block; font-size: 0.85rem"
+          >DaVinci Resolve Studio</span
+        >
+
+        <h2
+          style="
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.75rem;
+            color: #fff;
+          "
+        >
+          Sản phẩm đầu tiên
+        </h2>
+        <p style="color: #94a3b8; font-size: 1rem; margin-bottom: 1.5rem">
+          Mô tả sản phẩm 1
+        </p>
+
+        <!-- Khung Video TO ở trên -->
+        <div
+          style="
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #0b0f19;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+          "
+        >
+          <video
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            onmouseover="this.play()"
+            onmouseout="this.pause()"
+            oncontextmenu="return false;"
+            style="width: 100%; height: 100%; object-fit: cover"
+          >
+            <source
+              src="https://drive.google.com/file/d/16fImSWSpS5NZg-76qByApO2SeY2R7WTv"
+              type="video/mp4"
+            />
+            Trình duyệt của bạn không hỗ trợ thẻ video.
+          </video>
+        </div>
+
+        <!-- Giá và Nút bấm nằm ở dưới video -->
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+          "
+        >
+          <div style="font-size: 1.8rem; font-weight: bold; color: #38bdf8">
+            15.000đ
+          </div>
+
+          <div style="display: flex; gap: 1rem; min-width: 320px">
+            <button
+              onclick="addToCartFromButton(this)"
+              data-name="Cyberpunk Cinematic LUTs Pack v2"
+              data-price="150000"
+              style="
+                flex: 1;
+                padding: 0.85rem 1.5rem;
+                text-align: center;
+                background: #3b82f6;
+                color: white;
+                border: none;
+                border-radius: 0.75rem;
+                font-weight: bold;
+                cursor: pointer;
+                font-size: 1rem;
+              "
+            >
+              Thêm giỏ hàng
+            </button>
+            <button
+              onclick="buyNowDirect('Cyberpunk Cinematic LUTs Pack v2', 150000)"
+              style="
+                flex: 1;
+                padding: 0.85rem 1.5rem;
+                text-align: center;
+                background: linear-gradient(135deg, #a855f7, #3b82f6);
+                color: white;
+                border: none;
+                border-radius: 0.75rem;
+                font-weight: bold;
+                cursor: pointer;
+                font-size: 1rem;
+              "
+            >
+              Mua ngay
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SẢN PHẨM 2 -->
+      <div
+        style="
+          background: #121824;
+          border: 1px solid var(--border-color);
+          border-radius: 1.25rem;
+          padding: 2.5rem;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        "
+      >
+        <span
+          class="hero-badge"
+          style="margin-bottom: 1rem; display: inline-block; font-size: 0.85rem"
+          >DaVinci Resolve Studio</span
+        >
+
+        <h2
+          style="
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.75rem;
+            color: #fff;
+          "
+        >
+          Sản Phẩm thứ 2
+        </h2>
+        <p style="color: #94a3b8; font-size: 1rem; margin-bottom: 1.5rem">
+          Mô tả sản phẩm 2
+        </p>
+
+        <!-- Khung Video TO ở trên -->
+        <!-- <div
+          style="
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #0b0f19;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+          "
+        >
+          <video
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            onmouseover="this.play()"
+            onmouseout="this.pause()"
+            oncontextmenu="return false;"
+            style="width: 100%; height: 100%; object-fit: cover"
+          >
+            <source src="./videos/Main.mp4" type="video/mp4" />
+            Trình duyệt của bạn không hỗ trợ thẻ video.
+          </video>
+        </div> -->
+
+        <!-- Khung Video DỌC (Tỉ lệ 9:16) -->
+        <div
+          style="
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto 2rem auto;
+            aspect-ratio: 9/16;
+            background-color: #0b0f19;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+          "
+        >
+          <video
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            onmouseover="this.play()"
+            onmouseout="this.pause()"
+            oncontextmenu="return false;"
+            style="width: 100%; height: 100%; object-fit: cover"
+          >
+            <source
+              src="https://drive.google.com/file/d/19kM97FWdUA1kI6iQ_rVt9kgFTNNsNR5s"
+              type="video/mp4"
+            />
+            Trình duyệt của bạn không hỗ trợ thẻ video.
+          </video>
+        </div>
+
+        <!-- Giá và Nút bấm nằm ở dưới video -->
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+          "
+        >
+          <div style="font-size: 1.8rem; font-weight: bold; color: #38bdf8">
+            20.000đ
+          </div>
+
+          <div style="display: flex; gap: 1rem; min-width: 320px">
+            <button
+              onclick="addToCartFromButton(this)"
+              data-name="Neon Moody Grade Pack"
+              data-price="200000"
+              style="
+                flex: 1;
+                padding: 0.85rem 1.5rem;
+                text-align: center;
+                background: #3b82f6;
+                color: white;
+                border: none;
+                border-radius: 0.75rem;
+                font-weight: bold;
+                cursor: pointer;
+                font-size: 1rem;
+              "
+            >
+              Thêm giỏ hàng
+            </button>
+            <button
+              onclick="buyNowDirect('Neon Moody Grade Pack', 200000)"
+              style="
+                flex: 1;
+                padding: 0.85rem 1.5rem;
+                text-align: center;
+                background: linear-gradient(135deg, #a855f7, #3b82f6);
+                color: white;
+                border: none;
+                border-radius: 0.75rem;
+                font-weight: bold;
+                cursor: pointer;
+                font-size: 1rem;
+              "
+            >
+              Mua ngay
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal QR Code Thanh Toán -->
+    <div
+      id="qr-modal"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div
+        style="
+          background: #121824;
+          border: 1px solid var(--border-color);
+          padding: 2rem;
+          border-radius: 1rem;
+          width: 90%;
+          max-width: 400px;
+          text-align: center;
+          color: #fff;
+          position: relative;
+        "
+      >
+        <h3 style="margin-bottom: 1rem; color: #38bdf8">
+          Quét mã QR để thanh toán
+        </h3>
+        <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 1.5rem">
+          Sản phẩm:
+          <strong id="qrProductName"></strong><br />
+          Số tiền:
+          <strong id="qrAmountText" style="color: #38bdf8"></strong>
+        </p>
+
+        <!-- Khung chứa ảnh QR -->
+        <div
+          style="
+            background: #fff;
+            padding: 10px;
+            border-radius: 0.5rem;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+          "
+        >
+          <img
+            id="qrImage"
+            src=""
+            alt="QR Thanh Toan"
+            style="width: 200px; height: 200px; display: block"
+          />
+        </div>
+
+        <div
+          style="
+            background: #1f2937;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            color: #d1d5db;
+          "
+        >
+          <p><b>Ngân hàng:</b> Vietcombank</p>
+          <p><b>Số tài khoản:</b> 9383889999</p>
+          <p><b>Chủ tài khoản:</b> NGUYEN HOANG PHUC</p>
+        </div>
+
+        <!-- Nút Đóng -->
+        <button
+          onclick="closeQRModal()"
+          style="
+            background: #374151;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 2.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: bold;
+          "
+        >
+          Đóng
+        </button>
+      </div>
+    </div>
+
+    <!-- Script xử lý sự kiện -->
+    <script src="script.js"></script>
+    <script>
+      function buyNowDirect(name, price) {
+        document.getElementById("qrProductName").textContent = name;
+        document.getElementById("qrAmountText").textContent =
+          price.toLocaleString() + "đ";
+
+        const stk = "9383889999";
+        const bankCode = "VCB";
+        const memo = encodeURIComponent("ThanhToan " + name);
+        const qrImgUrl = `https://img.vietqr.io/image/${bankCode}-${stk}-compact2.png?amount=${price}&addInfo=${memo}`;
+
+        document.getElementById("qrImage").src = qrImgUrl;
+        document.getElementById("qr-modal").style.display = "flex";
+      }
+
+      function closeQRModal() {
+        document.getElementById("qr-modal").style.display = "none";
+      }
+    </script>
+  </body>
+</html>

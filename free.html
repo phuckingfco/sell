@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tài nguyên miễn phí - CineForge</title>
+    <!-- Google Fonts -->
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Poppins:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    /> -->
+    <!-- File CSS chung -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Thêm đoạn ẩn toast mặc định này vào đây -->
+    <style>
+      #custom-toast {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <header>
+      <div class="nav-container">
+        <div class="logo">CINEFORGE</div>
+        <ul class="nav-links">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="danh_muc.html">Danh mục</a></li>
+          <li><a href="san_pham.html">Sản phẩm Hot</a></li>
+          <li>
+            <a href="free.html" style="color: var(--neon-cyan)"
+              >Miễn phí (Freebies)</a
+            >
+          </li>
+          <li><a href="help.html">Hướng dẫn</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="login.html" class="login-btn">Đăng nhập</a>
+          <a href="gio_hang.html" class="cart-btn">Giỏ hàng (0)</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Freebies Section -->
+    <div style="max-width: 1200px; margin: 3rem auto; padding: 0 1.5rem">
+      <div style="text-align: center; margin-bottom: 3rem">
+        <span class="hero-badge">CineForge Community Gifts</span>
+        <h1 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem">
+          Kho Tài Nguyên Miễn Phí
+        </h1>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto">
+          Tải xuống các Presets, Transition và Sound Effects chất lượng cao hoàn
+          toàn miễn phí để bắt đầu dự án dựng phim của bạn ngay hôm nay.
+        </p>
+      </div>
+      <!-- Lưới sản phẩm miễn phí -->
+      <div class="product-grid">
+        <!-- Free Item 1 -->
+        <div class="product-card">
+          <div class="product-thumb">
+            <span
+              class="product-badge"
+              style="background: var(--neon-cyan); color: #0b0f19"
+              >Free Download</span
+            >
+            <span>Preview</span>
+          </div>
+          <div class="product-content">
+            <h3 class="product-title">Glitch Transition & Sound FX</h3>
+            <p class="product-desc">
+              Hơn 50+ hiệu ứng chuyển cảnh kỹ thuật số kèm âm thanh hiệu ứng
+              khớp từng khung hình.
+            </p>
+            <div class="product-footer">
+              <span class="product-price" style="color: var(--neon-purple)"
+                >0đ</span
+              >
+              <button
+                onclick="addToCartFromButton(this)"
+                data-price="0"
+                class="btn-buy"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    var(--neon-cyan),
+                    var(--electric-blue)
+                  );
+                  color: #0b0f19;
+                  border: none;
+                  width: 100%;
+                  padding: 0.75rem;
+                  border-radius: 0.5rem;
+                  font-weight: bold;
+                  cursor: pointer;
+                "
+              >
+                Tải xuống ngay
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Free Item 2 -->
+        <div class="product-card">
+          <div class="product-thumb">
+            <span
+              class="product-badge"
+              style="background: var(--neon-cyan); color: #0b0f19"
+              >Free Download</span
+            >
+            <span>Preview</span>
+          </div>
+          <div class="product-content">
+            <h3 class="product-title">Cinematic Light Leaks Pack</h3>
+            <p class="product-desc">
+              15 hiệu ứng rò rỉ ánh sáng thước phim cổ điển, kéo thả trực tiếp
+              vào timeline.
+            </p>
+            <div class="product-footer">
+              <span class="product-price" style="color: var(--neon-purple)"
+                >0đ</span
+              >
+              <button
+                onclick="addToCartFromButton(this)"
+                data-price="0"
+                class="btn-buy"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    var(--neon-cyan),
+                    var(--electric-blue)
+                  );
+                  color: #0b0f19;
+                  border: none;
+                  width: 100%;
+                  padding: 0.75rem;
+                  border-radius: 0.5rem;
+                  font-weight: bold;
+                  cursor: pointer;
+                "
+              >
+                Tải xuống ngay
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Free Item 3 -->
+        <div class="product-card">
+          <div class="product-thumb">
+            <span
+              class="product-badge"
+              style="background: var(--neon-cyan); color: #0b0f19"
+              >Free Download</span
+            >
+            <span>Preview</span>
+          </div>
+          <div class="product-content">
+            <h3 class="product-title">Basic Color Grading LUTs</h3>
+            <p class="product-desc">
+              Bộ lọc màu cơ bản giúp cân bằng sáng nhanh cho các thước phim quay
+              bằng điện thoại hoặc máy ảnh.
+            </p>
+            <div class="product-footer">
+              <span class="product-price" style="color: var(--neon-purple)"
+                >0đ</span
+              >
+              <button
+                onclick="addToCartFromButton(this)"
+                data-price="0"
+                class="btn-buy"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    var(--neon-cyan),
+                    var(--electric-blue)
+                  );
+                  color: #0b0f19;
+                  border: none;
+                  width: 100%;
+                  padding: 0.75rem;
+                  border-radius: 0.5rem;
+                  font-weight: bold;
+                  cursor: pointer;
+                "
+              >
+                Tải xuống ngay
+              </button>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center; margin-top: 1rem">
+          <button
+            onclick="closeQRModal()"
+            style="
+              padding: 0.75rem 2rem;
+              background: #374151;
+              color: #fff;
+              font-weight: 600;
+              border: none;
+              border-radius: 0.5rem;
+              cursor: pointer;
+            "
+          >
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Đóng modal QR -->
+
+    <script src="script.js"></script>
+  </body>
+</html>

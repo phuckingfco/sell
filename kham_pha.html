@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khám Phá - CineForge</title>
+    <!-- Liên kết file CSS chung -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Thanh Navigation (Menu đầu trang) -->
+    <header class="header">
+      <div class="logo">CineForge</div>
+      <nav class="nav-links">
+        <a href="index.html">Trang chủ</a>
+        <a href="kham_pha.html" class="active">Khám phá</a>
+        <a href="san_pham.html">Sản phẩm</a>
+        <a href="gio_hang.html">Giỏ hàng</a>
+      </nav>
+      <div class="auth-buttons">
+        <a href="login.html" class="login-btn">Đăng nhập</a>
+      </div>
+    </header>
+
+    <!-- Phần Nội Dung Khám Phá -->
+    <main style="padding: 8rem 5% 4rem; min-height: 80vh">
+      <div style="text-align: center; margin-bottom: 3rem">
+        <h1
+          style="
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 1rem;
+          "
+        >
+          Khám Phá Tài Nguyên Hot
+        </h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem">
+          Tổng hợp các project, source code và mockup đỉnh cao dành cho editor
+          và developer.
+        </p>
+      </div>
+
+      <!-- Lưới danh sách sản phẩm/khám phá mẫu -->
+      <div
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 2rem;
+        "
+      >
+        <!-- Thẻ bài viết/tài nguyên 1 -->
+        <div
+          style="
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            overflow: hidden;
+            padding: 1.5rem;
+          "
+        >
+          <div
+            style="
+              height: 150px;
+              background: linear-gradient(
+                135deg,
+                var(--neon-purple),
+                var(--electric-blue)
+              );
+              border-radius: 0.5rem;
+              margin-bottom: 1rem;
+            "
+          ></div>
+          <h3 style="color: #fff; font-size: 1.25rem; margin-bottom: 0.5rem">
+            Bộ Preset DaVinci Cinematic
+          </h3>
+          <p
+            style="
+              color: var(--text-muted);
+              font-size: 0.9rem;
+              margin-bottom: 1.5rem;
+            "
+          >
+            Tối ưu màu sắc thước phim nhanh chóng với tone màu Hollywood chuyên
+            nghiệp.
+          </p>
+          <a
+            href="san_pham.html"
+            style="
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              background: var(--bg-main);
+              color: var(--neon-cyan);
+              border: 1px solid var(--neon-cyan);
+              border-radius: 0.5rem;
+              text-decoration: none;
+              font-weight: 600;
+            "
+            >Xem chi tiết</a
+          >
+        </div>
+
+        <!-- Thẻ bài viết/tài nguyên 2 -->
+        <div
+          style="
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            overflow: hidden;
+            padding: 1.5rem;
+          "
+        >
+          <div
+            style="
+              height: 150px;
+              background: linear-gradient(135deg, #00f2fe, #4facfe);
+              border-radius: 0.5rem;
+              margin-bottom: 1rem;
+            "
+          ></div>
+          <h3 style="color: #fff; font-size: 1.25rem; margin-bottom: 0.5rem">
+            Source Code Web Dashboard
+          </h3>
+          <p
+            style="
+              color: var(--text-muted);
+              font-size: 0.9rem;
+              margin-bottom: 1.5rem;
+            "
+          >
+            Giao diện quản lý tối tân, tích hợp đầy đủ tính năng hiện đại cho
+            lập trình viên.
+          </p>
+          <a
+            href="san_pham.html"
+            style="
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              background: var(--bg-main);
+              color: var(--neon-cyan);
+              border: 1px solid var(--neon-cyan);
+              border-radius: 0.5rem;
+              text-decoration: none;
+              font-weight: 600;
+            "
+            >Xem chi tiết</a
+          >
+        </div>
+
+        <!-- Thẻ bài viết/tài nguyên 3 -->
+        <div
+          style="
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            overflow: hidden;
+            padding: 1.5rem;
+          "
+        >
+          <div
+            style="
+              height: 150px;
+              background: linear-gradient(135deg, #f72585, #7209b7);
+              border-radius: 0.5rem;
+              margin-bottom: 1rem;
+            "
+          ></div>
+          <h3 style="color: #fff; font-size: 1.25rem; margin-bottom: 0.5rem">
+            Hiệu Ứng Chuyển Cảnh 4K
+          </h3>
+          <p
+            style="
+              color: var(--text-muted);
+              font-size: 0.9rem;
+              margin-bottom: 1.5rem;
+            "
+          >
+            Bộ sưu tập transition cực mượt giúp video của bạn cuốn hút hơn bao
+            giờ hết.
+          </p>
+          <a
+            href="san_pham.html"
+            style="
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              background: var(--bg-main);
+              color: var(--neon-cyan);
+              border: 1px solid var(--neon-cyan);
+              border-radius: 0.5rem;
+              text-decoration: none;
+              font-weight: 600;
+            "
+            >Xem chi tiết</a
+          >
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal Đăng Nhập (Giữ nguyên để đồng bộ tính năng đăng nhập trên mọi trang) -->
+    <div id="loginModal" class="modal-overlay">
+      <div class="modal-container">
+        <button class="modal-close" id="closeModalBtn">&times;</button>
+        <div style="text-align: center; margin-bottom: 2rem">
+          <h2
+            style="
+              font-size: 1.75rem;
+              font-weight: 900;
+              margin-bottom: 0.5rem;
+              color: #ffffff;
+            "
+          >
+            Đăng Nhập
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem">
+            Truy cập vào kho tài nguyên CineForge
+          </p>
+        </div>
+        <form>
+          <div class="form-group">
+            <label>Email hoặc tên tài khoản</label>
+            <input type="text" placeholder="Nhập email của bạn..." required />
+          </div>
+          <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" placeholder="Nhập mật khẩu..." required />
+          </div>
+          <button type="submit" class="modal-submit-btn">Đăng Nhập Ngay</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Nhúng file JavaScript chung để trang nào cũng nhận tính năng popup và đồng bộ trạng thái đăng nhập -->
+    <script src="script.js"></script>
+  </body>
+</html>

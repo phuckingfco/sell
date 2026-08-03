@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh mục tài nguyên - CineForge</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Poppins:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- File CSS chung -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <header>
+      <div class="nav-container">
+        <div class="logo">CINEFORGE</div>
+        <ul class="nav-links">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li>
+            <a href="danh_muc.html" style="color: var(--neon-cyan)">Danh mục</a>
+          </li>
+          <li><a href="san_pham.html">Sản phẩm Hot</a></li>
+          <li><a href="free.html">Miễn phí (Freebies)</a></li>
+          <li><a href="help.html">Hướng dẫn</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="login.html" class="login-btn">Đăng nhập</a>
+          <a href="gio_hang.html" class="cart-btn">Giỏ hàng (0)</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Shop Section -->
+    <div class="shop-container">
+      <!-- Bộ lọc bên trái -->
+      <aside class="filter-sidebar">
+        <div class="filter-group">
+          <h3>Phần mềm tương thích</h3>
+          <ul class="filter-options">
+            <li>
+              <label><input type="checkbox" checked /> DaVinci Resolve</label>
+            </li>
+            <li>
+              <label><input type="checkbox" /> Premiere Pro</label>
+            </li>
+            <li>
+              <label><input type="checkbox" /> After Effects</label>
+            </li>
+            <li>
+              <label><input type="checkbox" /> CapCut Desktop</label>
+            </li>
+          </ul>
+        </div>
+        <div class="filter-group">
+          <h3>Loại tài nguyên</h3>
+          <ul class="filter-options">
+            <li>
+              <label
+                ><input type="checkbox" checked /> Color Grading Presets</label
+              >
+            </li>
+            <li>
+              <label><input type="checkbox" /> Transitions & Effects</label>
+            </li>
+            <li>
+              <label><input type="checkbox" /> Title & Text Templates</label>
+            </li>
+            <li>
+              <label><input type="checkbox" /> Miễn phí (Free)</label>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Danh sách sản phẩm bên phải -->
+      <main class="product-grid">
+        <!-- Sản phẩm 1 -->
+        <div class="product-card">
+          <div class="product-thumb">
+            <span class="product-badge">DaVinci Resolve</span>
+            <span>Video Preview</span>
+          </div>
+          <div class="product-content">
+            <h3 class="product-title">Cyberpunk Cinematic LUTs Pack v2</h3>
+            <p class="product-desc">
+              Bộ lọc màu phong cách điện ảnh tương lai, tối ưu sẵn cho không
+              gian màu DaVinci Wide Gamut.
+            </p>
+            <div class="product-footer">
+              <span class="product-price">150.000đ</span>
+              <a href="#" class="btn-buy">Xem chi tiết</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sản phẩm 2 -->
+        <div class="product-card">
+          <div class="product-thumb">
+            <span class="product-badge" style="background: var(--electric-blue)"
+              >Premiere Pro</span
+            >
+            <span>Video Preview</span>
+          </div>
+          <div class="product-content">
+            <h3 class="product-title">Glitch Transition & Sound FX</h3>
+            <p class="product-desc">
+              Hơn 50+ hiệu ứng chuyển cảnh kỹ thuật số kèm âm thanh hiệu ứng
+              khớp từng khung hình.
+            </p>
+            <div class="product-footer">
+              <span class="product-price">Free</span>
+              <a href="#" class="btn-buy">Tải xuống</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sản phẩm 3 -->
+        <div class="product-card">
+          <div class="product-thumb">
+            <span
+              class="product-badge"
+              style="background: var(--neon-cyan); color: #0b0f19"
+              >After Effects</span
+            >
+            <span>Video Preview</span>
+          </div>
+          <div class="product-content">
+            <h3 class="product-title">Minimal Lower Thirds MOGRT</h3>
+            <p class="product-desc">
+              Mẫu hiển thị tên nhân vật và tiêu đề tối giản, dễ dàng kéo thả
+              trực tiếp vào timeline.
+            </p>
+            <div class="product-footer">
+              <span class="product-price">99.000đ</span>
+              <a href="#" class="btn-buy">Xem chi tiết</a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

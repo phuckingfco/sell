@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giỏ Hàng - CineForge</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body style="padding: 2rem">
+    <div
+      style="
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 1.25rem;
+        padding: 2rem;
+      "
+    >
+      <h2 style="color: #ffffff; margin-bottom: 1.5rem; font-size: 1.75rem">
+        Giỏ Hàng Của Bạn
+      </h2>
+
+      <div
+        id="cartItemsContainer"
+        style="margin-bottom: 2rem; color: var(--text-main)"
+      >
+        <!-- Danh sách sản phẩm sẽ được load tự động bằng JS -->
+      </div>
+
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-top: 1px solid var(--border-color);
+          padding-top: 1rem;
+          margin-bottom: 1.5rem;
+        "
+      >
+        <span style="font-size: 1.2rem; font-weight: 700; color: #ffffff"
+          >Tổng thanh toán:</span
+        >
+        <span
+          id="cartTotalPrice"
+          style="font-size: 1.5rem; font-weight: 900; color: var(--neon-cyan)"
+          >0đ</span
+        >
+      </div>
+
+      <div class="cart-actions">
+        <button
+          onclick="openQRModal()"
+          class="btn-checkout"
+          style="
+            width: 100%;
+            padding: 1rem;
+            background: #38bdf8;
+            color: #0b0f19;
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 1rem;
+          "
+        >
+          Thanh toán ngay
+        </button>
+
+        <!-- Nút Quay lại mua sắm được đưa ra ngoài và nằm ở đây để luôn hiển thị -->
+        <a
+          href="san_pham.html"
+          style="
+            display: block;
+            text-align: center;
+            padding: 0.75rem;
+            background: #1f2937;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+          "
+        >
+          ← Quay lại mua sắm
+        </a>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      // Hàm hiển thị danh sách sản phẩm trong giỏ hàng
+      function renderCartPage() {
+        const cart = getCart();
+        const container = document.getElementById("cartItemsContainer");
+        const totalPriceEl = document.getElementById("cartTotalPrice");
+
+        if (!container) return;
+
+        // Xử lý khi giỏ hàng trống
+        if (cart.length === 0) {
+          container.innerHTML = `
+            <div style="text-align: center; padding: 1rem 0;">
+              <p style="color: #94a3b8; text-align: center; font-size: 1rem;">Giỏ hàng của bạn đang trống!</p>
+            </div>
+          `;
+          if (totalPriceEl) totalPriceEl.textContent = "0đ";
+          return;
+        }
+
+        // Nếu giỏ hàng có sản phẩm (hiển thị danh sách)
+        let html = "";
+        let totalAmount = 0;
+
+        cart.forEach((item, index) => {
+          const itemTotal = item.price * (item.quantity || 1);
+          totalAmount += itemTotal;
+          html += `
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #121824; padding: 1rem; border-radius: 0.5rem; margin-bottom: 0.75rem; border: 1px solid var(--border-color);">
+              <div>
+                <h4 style="color: #fff; margin-bottom: 0.25rem;">${item.name}</h4>
+                <p style="color: #38bdf8; font-size: 0.9rem;">${item.price.toLocaleString()}đ x ${item.quantity || 1}</p>
+              </div>
+              <button onclick="removeItem(${index})" style="background: #ef4444; color: #fff; border: none; padding: 0.4rem 0.8rem; border-radius: 0.3rem; cursor: pointer; font-size: 0.85rem;">Xóa</button>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+        if (totalPriceEl)
+          totalPriceEl.textContent = totalAmount.toLocaleString() + "đ";
+      }
+
+      // Hàm xóa từng sản phẩm trong giỏ
+      function removeItem(index) {
+        let cart = getCart();
+        cart.splice(index, 1);
+        saveCart(cart);
+        renderCartPage();
+      }
+
+      // Tự động chạy khi tải trang giỏ hàng
+      document.addEventListener("DOMContentLoaded", () => {
+        renderCartPage();
+      });
+    </script>
+
+    <!-- Modal QR Code Thanh Toán -->
+    <div
+      id="qr-modal"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        style="
+          background: #121826;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 1rem;
+          padding: 2rem;
+          max-width: 400px;
+          width: 90%;
+          text-align: center;
+          color: #fff;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        "
+      >
+        <h3 style="margin-bottom: 1rem; font-size: 1.25rem; font-weight: 700">
+          Quét Mã QR Để Thanh Toán
+        </h3>
+        <p style="color: #9ca3af; font-size: 0.85rem; margin-bottom: 1.5rem">
+          Sử dụng ứng dụng Ngân hàng hoặc MoMo để quét mã bên dưới
+        </p>
+
+        <!-- Khung chứa ảnh QR -->
+        <div
+          style="
+            background: #fff;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+          "
+        >
+          <img
+            id="qrImage"
+            src="img/QR_fake.jpg"
+            alt="QR Code"
+            style="width: 200px; height: 200px; display: block"
+          />
+        </div>
+
+        <div
+          style="
+            background: #1f2937;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            color: #d1d5db;
+          "
+        >
+          <p><b>Ngân hàng:</b> HP_BANK</p>
+          <p><b>Số tài khoản:</b> ***********</p>
+          <p><b>Chủ tài khoản:</b> HO HOANG PHUC</p>
+          <p>
+            <b>Số tiền:</b>
+            <span id="qrAmountText" style="color: #00f2fe; font-weight: bold"
+              >0đ</span
+            >
+          </p>
+        </div>
+
+        <div style="display: flex; justify-content: center; margin-top: 1rem">
+          <button
+            onclick="closeQRModal()"
+            style="
+              padding: 0.75rem 2rem;
+              background: #374151;
+              color: #fff;
+              font-weight: 600;
+              border: none;
+              border-radius: 0.5rem;
+              cursor: pointer;
+            "
+          >
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

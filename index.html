@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="fabicon.svg" />
+    <title>Dự án sell_online</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Poppins:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Liên kết file CSS riêng -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <header>
+      <div class="nav-container">
+        <div class="logo">CINEFORGE</div>
+        <ul class="nav-links">
+          <li><a href="danh_muc.html">Danh mục</a></li>
+          <li>
+            <a
+              href="san_pham.html"
+              class="btn-buy"
+              style="color: #ffffff; font-weight: 600"
+            >
+              <span class="pulse-icon">🔥</span> Sản phẩm Hot
+            </a>
+          </li>
+          <li><a href="free.html">Miễn phí (Freebies)</a></li>
+          <li><a href="help.html">Hướng dẫn</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="login.html" id="login" class="login-btn">Đăng nhập</a>
+          <a href="gio_hang.html" class="cart-btn">Giỏ hàng (0)</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-badge">Dành riêng cho Video Editor & Filmmaker</div>
+      <h1>
+        Nâng cấp thước phim của bạn với <span>Tài nguyên chuyên nghiệp</span>
+      </h1>
+      <p>
+        Kho lưu trữ Presets, Transitions, và Templates chất lượng cao, tối ưu
+        hóa tuyệt đối cho quy trình dựng hình của bạn.
+      </p>
+      <div class="hero-buttons">
+        <a href="kham_pha.html" class="btn-primary">Khám phá ngay</a>
+        <a href="free.html" class="btn-secondary">Tải bản miễn phí</a>
+      </div>
+    </section>
+
+    <!-- Modal Đăng Nhập -->
+    <div id="loginModal" class="modal-overlay">
+      <div class="modal-container">
+        <button class="modal-close" id="closeModalBtn">&times;</button>
+        <div style="text-align: center; margin-bottom: 2rem">
+          <h2
+            style="
+              font-size: 1.75rem;
+              font-weight: 900;
+              margin-bottom: 0.5rem;
+              color: #ffffff;
+            "
+          >
+            Đăng Nhập
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem">
+            Truy cập vào kho tài nguyên CineForge
+          </p>
+        </div>
+
+        <!-- Nút Đăng nhập nhanh bằng Google -->
+        <button type="button" id="googleLoginBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <path
+              fill="#4285F4"
+              d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"
+            />
+            <path
+              fill="#34A853"
+              d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.18v3.14C3.15 21.32 7.23 24 12 24z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.62H1.18C.43 8.13 0 9.82 0 12s.43 3.87 1.18 5.38l4.09-3.14z"
+            />
+            <path
+              fill="#EA4335"
+              d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.23 0 3.15 2.68 1.18 6.62l4.09 3.14c.95-2.85 3.6-4.96 6.73-4.96z"
+            />
+          </svg>
+          Tiếp tục với Google
+        </button>
+
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            font-size: 0.85rem;
+          "
+        >
+          <div
+            style="flex: 1; border-bottom: 1px solid var(--border-color)"
+          ></div>
+          <span style="padding: 0 0.75rem">hoặc đăng nhập bằng email</span>
+          <div
+            style="flex: 1; border-bottom: 1px solid var(--border-color)"
+          ></div>
+        </div>
+
+        <form>
+          <div class="form-group">
+            <label>Email hoặc tên tài khoản</label>
+            <input type="text" placeholder="Nhập email của bạn..." required />
+          </div>
+          <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" placeholder="Nhập mật khẩu..." required />
+          </div>
+          <button type="submit" class="modal-submit-btn">Đăng Nhập Ngay</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Liên kết file JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>

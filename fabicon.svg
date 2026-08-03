@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Nền bo tròn đậm chất app hiện đại -->
+  <rect width="64" height="64" rx="16" fill="#0b0f19"/>
+  
+  <!-- Viền sáng neon cine (màu xanh cyan đặc trưng của web) -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="#00f2fe" stroke-width="3" opacity="0.8"/>
+  
+  <!-- Biểu tượng chữ C và F lồng vào nhau -->
+  <!-- Chữ C lớn bao ngoài -->
+  <path d="M44 18H26c-6.6 0-12 5.4-12 12v4c0 6.6 5.4 12 12 12h18v-6H26c-3.3 0-6-2.7-6-6v-4c0-3.3 2.7-6 6-6h18v-6z" fill="url(#gradC)"/>
+  
+  <!-- Chữ F nhỏ lồng bên trong -->
+  <path d="M34 24h8v5h-8v8h-6v-21h14v5h-8v3z" fill="#FFFFFF"/> <!-- Chữ F màu trắng nổi bật -->
+
+  <!-- Gradient màu điện ảnh cho chữ C -->
+  <defs>
+    <linearGradient id="gradC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#4facfe"/>
+    </linearGradient>
+  </defs>
+</svg>

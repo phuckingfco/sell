@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Nhập - CineForge</title>
+    <!-- Gọi đúng file CSS chung -->
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* CSS riêng để trang login độc lập tự căn giữa màn hình tối */
+      body {
+        background-color: #0b0f19 !important;
+        color: #f3f4f6 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: inherit;
+      }
+      .login-page-container {
+        width: 100%;
+        max-width: 420px;
+        background-color: #121826;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-page-container">
+      <div style="text-align: center; margin-bottom: 2rem">
+        <h2
+          style="
+            font-size: 1.75rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+          "
+        >
+          Đăng Nhập
+        </h2>
+        <p style="color: #9ca3af; font-size: 0.9rem">
+          Truy cập vào kho tài nguyên CineForge
+        </p>
+      </div>
+
+      <!-- Nút Đăng nhập nhanh bằng Google -->
+      <button
+        type="button"
+        id="googleLoginBtn"
+        style="
+          width: 100%;
+          padding: 0.75rem;
+          background-color: #ffffff;
+          color: #374151;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 0.5rem;
+          font-weight: 600;
+          font-size: 0.95rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.75rem;
+          margin-bottom: 1.25rem;
+        "
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24">
+          <path
+            fill="#4285F4"
+            d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"
+          />
+          <path
+            fill="#34A853"
+            d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.18v3.14C3.15 21.32 7.23 24 12 24z"
+          />
+          <path
+            fill="#FBBC05"
+            d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.62H1.18C.43 8.13 0 9.82 0 12s.43 3.87 1.18 5.38l4.09-3.14z"
+          />
+          <path
+            fill="#EA4335"
+            d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.23 0 3.15 2.68 1.18 6.62l4.09 3.14c.95-2.85 3.6-4.96 6.73-4.96z"
+          />
+        </svg>
+        Tiếp tục với Google
+      </button>
+
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          text-align: center;
+          color: #9ca3af;
+          margin-bottom: 1.25rem;
+          font-size: 0.85rem;
+        "
+      >
+        <div
+          style="flex: 1; border-bottom: 1px solid rgba(255, 255, 255, 0.1)"
+        ></div>
+        <span style="padding: 0 0.75rem">hoặc đăng nhập bằng email</span>
+        <div
+          style="flex: 1; border-bottom: 1px solid rgba(255, 255, 255, 0.1)"
+        ></div>
+      </div>
+
+      <form id="loginFormPage">
+        <div class="form-group" style="margin-bottom: 1rem">
+          <label
+            style="
+              display: block;
+              margin-bottom: 0.5rem;
+              font-size: 0.9rem;
+              color: #d1d5db;
+            "
+            >Email hoặc tên tài khoản</label
+          >
+          <input
+            type="text"
+            id="loginUserInput"
+            placeholder="Nhập email của bạn..."
+            required
+            style="
+              width: 100%;
+              padding: 0.75rem;
+              background: #1f2937;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              border-radius: 0.5rem;
+              color: #fff;
+              box-sizing: border-box;
+            "
+          />
+        </div>
+        <div class="form-group" style="margin-bottom: 1.5rem">
+          <label
+            style="
+              display: block;
+              margin-bottom: 0.5rem;
+              font-size: 0.9rem;
+              color: #d1d5db;
+            "
+            >Mật khẩu</label
+          >
+          <input
+            type="password"
+            placeholder="Nhập mật khẩu..."
+            required
+            style="
+              width: 100%;
+              padding: 0.75rem;
+              background: #1f2937;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              border-radius: 0.5rem;
+              color: #fff;
+              box-sizing: border-box;
+            "
+          />
+        </div>
+        <button
+          type="submit"
+          style="
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #a855f7, #00f2fe);
+            color: #0b0f19;
+            font-weight: 700;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+          "
+        >
+          Đăng Nhập Ngay
+        </button>
+      </form>
+    </div>
+
+    <!-- Đoạn JS xử lý riêng cho trang login độc lập -->
+    <script>
+      document
+        .getElementById("loginFormPage")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const userInput = document.getElementById("loginUserInput").value;
+
+          // Lưu thông tin vào localStorage
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("username", userInput || "Phúc");
+          localStorage.setItem("userName", userInput || "Phúc");
+
+          alert("Đăng nhập thành công!");
+          window.location.href = "index.html"; // Chuyển hướng về trang chủ
+        });
+
+      document
+        .getElementById("googleLoginBtn")
+        .addEventListener("click", function () {
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("username", "Phúc");
+          localStorage.setItem("userName", "Phúc");
+
+          alert("Đăng nhập bằng Google thành công!");
+          window.location.href = "index.html"; // Chuyển hướng về trang chủ
+        });
+    </script>
+  </body>
+</html>

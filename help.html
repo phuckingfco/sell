@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hướng dẫn & Trợ giúp - CineForge</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Poppins:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- File CSS chung -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <header>
+      <div class="nav-container">
+        <div class="logo">
+          <a
+            href="index.html"
+            style="
+              text-decoration: none;
+              background: linear-gradient(
+                135deg,
+                var(--neon-purple),
+                var(--electric-blue),
+                var(--neon-cyan)
+              );
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            "
+            >CINEFORGE</a
+          >
+        </div>
+        <ul class="nav-links">
+          <li><a href="danh_muc.html">Danh mục</a></li>
+          <li><a href="san_pham.html">Sản phẩm Hot</a></li>
+          <li><a href="free.html">Miễn phí (Freebies)</a></li>
+          <li>
+            <a href="help.html" style="color: var(--neon-cyan)">Hướng dẫn</a>
+          </li>
+        </ul>
+        <div class="nav-actions">
+          <a href="login.html" class="login-btn">Đăng nhập</a>
+          <a href="gio_hang.html" class="cart-btn">Giỏ hàng (0)</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Help Section -->
+    <div class="help-container">
+      <div style="text-align: center; margin-bottom: 3rem">
+        <span class="hero-badge">Trung tâm hỗ trợ</span>
+        <h1 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem">
+          Câu hỏi & Hướng dẫn sử dụng
+        </h1>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto">
+          Mọi thắc mắc về quy trình thanh toán, tải file và cách thức cài đặt
+          tài nguyên lên phần mềm dựng phim sẽ được giải đáp tại đây.
+        </p>
+      </div>
+
+      <!-- Phần 1: Hướng dẫn cài đặt -->
+      <div class="help-section">
+        <h2>⚙️ Hướng dẫn cài đặt tài nguyên</h2>
+
+        <div class="faq-box">
+          <div class="faq-question">
+            1. Cách cài đặt LUTs vào DaVinci Resolve
+          </div>
+          <div class="faq-answer">
+            Giải nén file tải về, mở DaVinci Resolve lên, vào phần
+            <strong>Settings > Color > Open LUT Folder</strong>. Sau đó copy thư
+            mục chứa file `.cube` vào đây, bấm nút <em>Update Lists</em> là
+            xong. Hoặc bạn có thể kéo thả trực tiếp file LUT vào khung Node ở
+            Color Page.
+          </div>
+        </div>
+
+        <div class="faq-box">
+          <div class="faq-question">
+            2. Cách sử dụng Transition và Sound FX trong Premiere Pro
+          </div>
+          <div class="faq-answer">
+            Sau khi tải về, mở Premiere Pro, vào mục
+            <em>Essential Graphics</em> để import các template MOGRT hoặc kéo
+            trực tiếp các file project mẫu vào bảng Project Panel để bắt đầu cắt
+            ghép.
+          </div>
+        </div>
+      </div>
+
+      <!-- Phần 2: Câu hỏi thường gặp -->
+      <div class="help-section">
+        <h2>❓ Câu hỏi thường gặp (FAQ)</h2>
+
+        <div class="faq-box">
+          <div class="faq-question">
+            Sau khi thanh toán xong thì nhận file bằng cách nào?
+          </div>
+          <div class="faq-answer">
+            Hệ thống sẽ tự động gửi link tải trực tiếp qua email của bạn hoặc
+            hiển thị ngay màn hình xác nhận giao dịch thành công kèm link Google
+            Drive tốc độ cao.
+          </div>
+        </div>
+
+        <div class="faq-box">
+          <div class="faq-question">
+            Tài nguyên mua rồi có được cập nhật phiên bản mới không?
+          </div>
+          <div class="faq-answer">
+            Có! Tất cả các gói sản phẩm trả phí đều được hỗ trợ cập nhật trọn
+            đời (Lifetime Updates) miễn phí khi có phiên bản nâng cấp tương
+            thích với các bản phần mềm mới nhất.
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
